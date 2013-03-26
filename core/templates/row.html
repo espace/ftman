@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Row</title>
+</head>
+
+<body>
+
+<form action="" method="post">
+<table>
+{% for key, value in results.items %}
+    <tr>
+        <td>{{ key }}</td>
+        <td><input name="{{ key }}" type="text" value="{{ value }}" /></td>
+    </tr>
+{% endfor %}
+</table>
+
+<input type="submit" value="Submit" />
+
+{% csrf_token %}
+
+</form>
+
+<form method="post" action="/delete/{{ rowid }}" onsubmit="return confirm('sdfdsfds ?');">
+
+<input type="submit" value="Delete" />
+
+{% csrf_token %}
+
+</form>
+
+</body>
+</html>
