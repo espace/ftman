@@ -3,6 +3,7 @@
 import sys, getpass
 
 import string
+import csv
 from django.conf import settings
 
 from django.shortcuts  import render_to_response
@@ -69,8 +70,12 @@ def row(request, rowid):
 
     for var in string.split(results, '\n'):
          if var.strip():
-             list.append(string.split(var, ','))
-             selcol.append(string.split(var, ','))
+             for line in csv.reader([var], skipinitialspace=True):
+                 print line
+             #list.append(string.split(var, ','))
+             #selcol.append(string.split(var, ','))
+             list.append(line)
+             selcol.append(line)
 
     list.pop(0) # Remove header row
     selcol.pop(1) # Remove header row
@@ -100,10 +105,13 @@ def home(request):
 
     ######### get table rows ##################
     results = ft_client.query(SQL().select(settings.TABLE_ID, selcol))
-
+    
     for var in string.split(results, '\n'):
          if var.strip():
-             rowslist.append(string.split(var, ','))
+             for line in csv.reader([var], skipinitialspace=True):
+                 print line
+             #rowslist.append(string.split(var, ','))
+             rowslist.append(line)
 
     rowslist.pop(0) # Remove header row
 
