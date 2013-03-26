@@ -3,6 +3,7 @@
 import sys, getpass
 
 import string
+import csv
 from django.conf import settings
 
 from django.shortcuts  import render_to_response
@@ -59,6 +60,7 @@ def row(request, rowid):
     results = ft_client.query(SQL().select(settings.TABLE_ID, None, "rowid=" + rowid))
 
     template_context = {'header' : results['header'], 'rows' : results['rows']}
+
     return render_to_response('row.html', template_context ,RequestContext(request))
 
 def home(request):

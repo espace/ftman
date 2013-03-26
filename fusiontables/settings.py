@@ -1,8 +1,8 @@
 # Django settings for fusiontables project.
 
 TABLE_ID = '1WgsnPYz18CeEwywTyWNTvCCCZc4VBmBg5mJdXnM'
-USERNAME = 'espace.apps@gmail.com'
-PASSWORD = '@eSpaceApps'
+USERNAME = 'xxxxxxxxxxxxxxx'
+PASSWORD = 'xxxxxxxxxxxxxxx'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
