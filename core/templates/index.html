@@ -7,21 +7,21 @@
 
 <body>
 
-<pre>
-{% for column in list %}
-{{ column.1 }} => {{ column.2 }}
-{% endfor %}
-</pre>
-
-
-<table>
-{% for row in rowslist %}
+<table border="1">
     <tr>
-    	{% for i in row %}
-        <td><a href="{% url row rowid=row.0 %}">{{ i }}</a></td>
-        {% endfor %}
+		{% for col in header %}
+        <th width="80">{{ col }}</th>
+		{% endfor %}
+        <th></th>
     </tr>
-{% endfor %}
+	{% for row in rows %}
+    <tr>
+    	{% for key, value in row.items %}
+        <td>{{ value }}</td>
+		{% endfor %}
+        <td><a href="{% url row rowid=row.rowid %}">view</a></td>
+    </tr>
+	{% endfor %}
 </table>
 
 </body>

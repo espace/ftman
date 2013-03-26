@@ -35,18 +35,12 @@ def new(request):
          my_post.pop("csrfmiddlewaretoken", None)
 
          rowid = int(ft_client.query(SQL().insert(settings.TABLE_ID, my_post)).split("\n")[1])
+         return HttpResponseRedirect(reverse('home'))
 
     results = ft_client.query(SQL().describeTable(settings.TABLE_ID))
 
-    list=[]
-
-    for var in string.split(results, '\n'):
-         if var.strip():
-             list.append(string.split(var, ','))
-
-    list.pop(0) # Remove header row
-
-    template_context = {'results' : list}
+    print results
+    template_context = {'header' : results['header'], 'rows' : results['rows']}
 
     return render_to_response('new.html', template_context ,RequestContext(request))
 
@@ -64,51 +58,23 @@ def row(request, rowid):
 
     results = ft_client.query(SQL().select(settings.TABLE_ID, None, "rowid=" + rowid))
 
-    list=[]
-    selcol=[]
-
-    for var in string.split(results, '\n'):
-         if var.strip():
-             list.append(string.split(var, ','))
-             selcol.append(string.split(var, ','))
-
-    list.pop(0) # Remove header row
-    selcol.pop(1) # Remove header row
-
-    template_context = {'rowid' : rowid, 'results' : dict(zip(selcol[0], list[0]))}
+    template_context = {'header' : results['header'], 'rows' : results['rows']}
     return render_to_response('row.html', template_context ,RequestContext(request))
 
 def home(request):
 
     token = ClientLogin().authorize(settings.USERNAME, settings.PASSWORD)
     ft_client = ftclient.ClientLoginFTClient(token)
+    
+    results = []
   
-    ######### describe tables ##################
-    results = ft_client.query(SQL().describeTable(settings.TABLE_ID))
-
-    list=[]
-    rowslist=[]
-    selcol=[]
-
-    for var in string.split(results, '\n'):
-         if var.strip():
-             list.append(string.split(var, ','))
-             selcol.append(string.split(var, ',')[1])
-
-    list.pop(0) # Remove header row
-    selcol[0] = 'rowid' # Add ROWID column
-
     ######### get table rows ##################
-    results = ft_client.query(SQL().select(settings.TABLE_ID, selcol))
+    table_info = ft_client.query(SQL().select(settings.TABLE_ID))
+    table_info['header'].append('rowid')
 
-    for var in string.split(results, '\n'):
-         if var.strip():
-             rowslist.append(string.split(var, ','))
+    results = ft_client.query(SQL().select(settings.TABLE_ID, table_info['header']))
 
-    rowslist.pop(0) # Remove header row
-
-
-    template_context = {'list' : list, 'rowslist' : rowslist}
+    template_context = {'header' : results['header'], 'rows' : results['rows']}
     return render_to_response('index.html', template_context ,RequestContext(request))
 
 
