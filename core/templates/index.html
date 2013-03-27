@@ -1,3 +1,4 @@
+{% load filters %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -7,22 +8,9 @@
 
 <body>
 
-<table border="1">
-    <tr>
-		{% for col in header %}
-        <th width="80">{{ col }}</th>
-		{% endfor %}
-        <th></th>
-    </tr>
-	{% for row in rows %}
-    <tr>
-    	{% for key, value in row.items %}
-        <td>{{ value }}</td>
-		{% endfor %}
-        <td><a href="{% url row rowid=row.rowid %}">view</a></td>
-    </tr>
-	{% endfor %}
-</table>
+{% for table in tables %}
+    <a href='{% url table tableid=table|getkey:"table id" %}' >{{table.name}}</a><br />
+{% endfor %}
 
 </body>
 </html>

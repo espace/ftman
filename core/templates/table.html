@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Home</title>
+</head>
+
+<body>
+<form action="{% url search tableid=tableid %}" method="get">
+    search table <input type="text" name="searchKey" id="searchKey" />
+    <input type="submit" value="Search" />
+</form>
+
+<a href="{% url new tableid=tableid %}">Add new row</a>
+<table border="1">
+    <tr>
+        {% for col in header %}
+        <th width="80">{{ col }}</th>
+        {% endfor %}
+        <th></th>
+    </tr>
+    {% for row in rows %}
+    <tr>
+        {% for key, value in row.items %}
+        <td>{{ value }}</td>
+        {% endfor %}
+        <td><a href="{% url row tableid=tableid rowid=row.rowid %}">view</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% if pager.num_pages > 1 %}
+    <a href="{% url table tableid=tableid %}?page=1">First</a>
+{% endif %}
+
+{% if page.has_previous %}
+    <a href="{% url table tableid=tableid %}?page={{page.previous_page_number}}">Previous</a>
+{% endif %}
+
+{% for page_num in pager.page_range %}
+    <a href="{% url table tableid=tableid %}?page={{page_num}}">{{page_num}}</a>
+{% endfor %}
+
+{% if page.has_next %}
+    <a href="{% url table tableid=tableid %}?page={{page.next_page_number}}">Next</a>
+{% endif %}
+
+{% if pager.num_pages > 1 %}
+    <a href="{% url table tableid=tableid %}?page={{pager.num_pages}}">Last</a>
+{% endif %}
+</body>
+</html>
