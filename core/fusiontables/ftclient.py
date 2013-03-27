@@ -9,6 +9,9 @@ Issue requests to Fusion Tables.
 
 __author__ = 'kbrisbin@google.com (Kathryn Brisbin)'
 
+import csv
+import string
+from core.odict import odict as OrderedDict
 import urllib2, urllib
 try:
   import oauth2
@@ -33,7 +36,20 @@ class FTClient():
        lowercase_query.startswith("show") or \
        request_type=="GET":
 
-      return self._get(urllib.urlencode({'sql': query}))
+      header = []
+      rows = []
+      content = {}
+
+      for idx, line in enumerate(string.split(self._get(urllib.urlencode({'sql': query})), '\n')):
+         if line.strip():
+             for row in csv.reader([line], skipinitialspace=True):
+                 if idx == 0: content['header'] = row
+                 else: rows.append(OrderedDict(zip(content['header'], row)))
+
+             content['rows'] = rows
+
+      return content
+      #return self._get(urllib.urlencode({'sql': query}))
 
     else:
       return self._post(urllib.urlencode({'sql': query}))

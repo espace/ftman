@@ -9,12 +9,16 @@
 
 <form action="" method="post">
 <table>
-{% for key, value in results.items %}
-    <tr>
-        <td>{{ key }}</td>
-        <td><input name="{{ key }}" type="text" value="{{ value }}" /></td>
-    </tr>
-{% endfor %}
+
+	{% for row in rows %}
+    	{% for key, value in row.items %}
+            <tr>
+                <td>{{ key }}</td>
+                <td><input name="{{ key }}" type="text" value="{{ value }}" /></td>
+            </tr>
+		{% endfor %}
+	{% endfor %}
+    
 </table>
 
 <input type="submit" value="Submit" />
@@ -23,7 +27,7 @@
 
 </form>
 
-<form method="post" action="/delete/{{ rowid }}" onsubmit="return confirm('sdfdsfds ?');">
+<form method="post" action="/delete" onsubmit="return confirm('sdfdsfds ?');">
 
 <input type="submit" value="Delete" />
 

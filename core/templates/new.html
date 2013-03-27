@@ -8,13 +8,16 @@
 <body>
 
 <form action="" method="post">
+
 <table>
-{% for key in results %}
+
+{% for row in rows %}
     <tr>
-        <td>{{ key.1 }}</td>
-        <td><input name="{{ key.1 }}" type="text" /></td>
+        <td>{{ row.name }}</td>
+        <td><input name="{{ row.name }}" type="text" /></td>
     </tr>
 {% endfor %}
+    
 </table>
 
 <input type="submit" value="Submit" />
