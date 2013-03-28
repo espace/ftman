@@ -67,10 +67,7 @@ def home(request):
 
     token = ClientLogin().authorize(settings.USERNAME, settings.PASSWORD)
     ft_client = ftclient.ClientLoginFTClient(token)
-    
-    results = []
-  
-    ######### get table rows ##################
+
     table_info = ft_client.query(SQL().select(settings.TABLE_ID))
     table_info['header'].append('rowid')
 
