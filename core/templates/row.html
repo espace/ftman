@@ -9,8 +9,7 @@
 
 <form action="" method="post">
 <table>
-
-	{% for row in rows %}
+    {% for row in rows %}
     	{% for key, value in row.items %}
             <tr>
                 <td>{{ key }}</td>
@@ -27,7 +26,7 @@
 
 </form>
 
-<form method="post" action="/delete" onsubmit="return confirm('sdfdsfds ?');">
+<form method="post" action="{% url delete tableid=tableid rowid=rowid %}" onsubmit="return confirm('Are you sure you want to delete ?');">
 
 <input type="submit" value="Delete" />
 

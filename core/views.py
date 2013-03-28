@@ -6,7 +6,8 @@ import string
 import csv
 from django.conf import settings
 from django.contrib import auth
-
+from django.contrib import messages
+from django.core.paginator import Paginator
 from django.shortcuts  import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
@@ -17,150 +18,167 @@ from core.fusiontables.sql.sqlbuilder import SQL
 from core.fusiontables import ftclient
 from core.fusiontables.fileimport.fileimporter import CSVImporter
 
-def delete(request, rowid):
+def delete(request, tableid, rowid):
 
-    token = ClientLogin().authorize(settings.USERNAME, settings.PASSWORD)
-    ft_client = ftclient.ClientLoginFTClient(token)
-
-    results = ft_client.query(SQL().delete(settings.TABLE_ID, rowid))
+    if is_logged(request):
+        ft_client = request.session.get('ft_client')
+        if not is_allowed_to_view(ft_client, tableid):
+            return HttpResponseRedirect(reverse('index'))
+    else:
+        return HttpResponseRedirect(reverse('login'))
+    
+    results = ft_client.query(SQL().delete(tableid, rowid))
 
     return HttpResponseRedirect(reverse('home'))
 
-def new(request):
-
-    token = ClientLogin().authorize(settings.USERNAME, settings.PASSWORD)
-    ft_client = ftclient.ClientLoginFTClient(token)
-
+def new(request, tableid):
+    if is_logged(request):
+        ft_client = request.session.get('ft_client')
+        if not is_allowed_to_view(ft_client, tableid):
+            return HttpResponseRedirect(reverse('index'))
+    else:
+        return HttpResponseRedirect(reverse('login'))
+    
     if request.method == 'POST':
          my_post = request.POST.copy()
          my_post.pop("csrfmiddlewaretoken", None)
+         print my_post
+         rowid = int(ft_client.query(SQL().insert(tableid, my_post)).split("\n")[1])
+         return HttpResponseRedirect(reverse('table', kwargs={'tableid': tableid}))
 
-         rowid = int(ft_client.query(SQL().insert(settings.TABLE_ID, my_post)).split("\n")[1])
-         return HttpResponseRedirect(reverse('home'))
+    results = ft_client.query(SQL().describeTable(tableid))
 
-    results = ft_client.query(SQL().describeTable(settings.TABLE_ID))
-
-    print results
-    template_context = {'header' : results['header'], 'rows' : results['rows']}
+    template_context = {'header' : results['header'], 'rows' : results['rows'], 'tableid': tableid}
 
     return render_to_response('new.html', template_context ,RequestContext(request))
 
 
-def row(request, rowid):
+def row(request, tableid, rowid):
 
-    token = ClientLogin().authorize(settings.USERNAME, settings.PASSWORD)
-    ft_client = ftclient.ClientLoginFTClient(token)
+    if is_logged(request):
+        ft_client = request.session.get('ft_client')
+        if not is_allowed_to_view(ft_client, tableid):
+            return HttpResponseRedirect(reverse('index'))
+    else:
+        return HttpResponseRedirect(reverse('login'))
 
     if request.method == 'POST':
          my_post = request.POST.copy()
          my_post.pop("csrfmiddlewaretoken", None)
 
-         results = ft_client.query(SQL().update(settings.TABLE_ID, my_post.keys(), my_post.values(), rowid))
+         results = ft_client.query(SQL().update(tableid, my_post.keys(), my_post.values(), rowid))
 
-    results = ft_client.query(SQL().select(settings.TABLE_ID, None, "rowid=" + rowid))
+    results = ft_client.query(SQL().select(tableid, None, "rowid=" + rowid))
 
-    template_context = {'header' : results['header'], 'rows' : results['rows']}
+    template_context = {'header' : results['header'], 'rows' : results['rows'], 'tableid': tableid, 'rowid': rowid}
 
     return render_to_response('row.html', template_context ,RequestContext(request))
 
 def home(request):
 
-    token = ClientLogin().authorize(settings.USERNAME, settings.PASSWORD)
-    ft_client = ftclient.ClientLoginFTClient(token)
-
-    table_info = ft_client.query(SQL().select(settings.TABLE_ID))
-    table_info['header'].append('rowid')
-
-    results = ft_client.query(SQL().select(settings.TABLE_ID, table_info['header']))
-
-    template_context = {'header' : results['header'], 'rows' : results['rows']}
-    return render_to_response('index.html', template_context ,RequestContext(request))
-
-def tables(request):
-    
-    if not request.session['ft_client']:
+    if is_logged(request):
+        ft_client = request.session.get('ft_client')
+    else:
         return HttpResponseRedirect(reverse('login'))
     
-    ft_client = request.session['ft_client']
-    results = ft_client.query(SQL().showTables())
+    tables = ft_client.query(SQL().showTables())
     
-    tables = []
-    for var in string.split(results, '\n'):
-         if var.strip():
-             tables.append(string.split(var, ','))
-    tables.pop(0)
-    
-    template_context = {'tables' : tables}
-    return render_to_response('tables.html', template_context ,RequestContext(request))
+    template_context = {'tables' : tables['rows']}
 
-def is_allowed_to_view(ft_client, tableid):
-    results = ft_client.query(SQL().showTables())
-    
-    tables = []
-    for var in string.split(results, '\n'):
-         if var.strip():
-             tables.append(string.split(var, ',')[0])
-    tables.pop(0)
-    
-    if tableid in tables:
-        return 1
-    else:
-        return 0
+    return render_to_response('index.html', template_context ,RequestContext(request))
 
 def table(request, tableid):
     
-    if not request.session['ft_client']:
+    if is_logged(request):
+        ft_client = request.session.get('ft_client')
+        if not is_allowed_to_view(ft_client, tableid):
+            messages.error(request, 'You are not allowed to view this table.')
+            return HttpResponseRedirect(reverse('home'))
+    else:
         return HttpResponseRedirect(reverse('login'))
     
-    ft_client = request.session['ft_client']
+    results = []
+    table_info = ft_client.query(SQL().select(tableid))
+    table_info['header'].append('rowid')
+
+    results = ft_client.query(SQL().select(tableid, table_info['header']))
     
-    if not is_allowed_to_view(ft_client, tableid):
-        return HttpResponseRedirect(reverse('tables'))
+    pager = Paginator(results['rows'], settings.PAGER)
     
-    results = ft_client.query(SQL().describeTable(tableid))
-
-    list=[]
-    rowslist=[]
-    selcol=[]
-
-    for var in string.split(results, '\n'):
-         if var.strip():
-             list.append(string.split(var, ','))
-             selcol.append(string.split(var, ',')[1])
-
-    list.pop(0) # Remove header row
-    selcol[0] = 'rowid' # Add ROWID column
-
-    ######### get table rows ##################
-    results = ft_client.query(SQL().select(tableid, selcol))
+    if request.GET.get('page'):
+        page = pager.page(request.GET.get('page'))
+    else:
+        page = pager.page(1)
     
-    for var in string.split(results, '\n'):
-         if var.strip():
-             for line in csv.reader([var], skipinitialspace=True):
-                 print line
-             #rowslist.append(string.split(var, ','))
-             rowslist.append(line)
+    template_context = {'header' : results['header'], 'rows' : page.object_list, 'tableid': tableid, 'pager': pager, 'page': page}
+    return render_to_response('table.html', template_context ,RequestContext(request))
 
-    rowslist.pop(0) # Remove header row
+def search(request, tableid):
+    if is_logged(request):
+        ft_client = request.session.get('ft_client')
+        if not is_allowed_to_view(ft_client, tableid):
+            return HttpResponseRedirect(reverse('index'))
+    else:
+        return HttpResponseRedirect(reverse('login'))
+    
+    results = []
+    table_info = ft_client.query(SQL().select(tableid))
+    table_info['header'].append('rowid')
+    
+    if request.GET.get('searchKey'):
+        condition = "col0 LIKE '%" + request.GET.get('searchKey') + "%'"
+        results = ft_client.query(SQL().select(tableid, table_info['header'], condition))
+    else:
+        results = ft_client.query(SQL().select(tableid, table_info['header']))
+    
+    template_context = {'header' : results['header'], 'rows' : results['rows'], 'tableid': tableid}
+    return render_to_response('table.html', template_context ,RequestContext(request))
 
-
-    template_context = {'list' : list, 'rowslist' : rowslist}
-    return render_to_response('index.html', template_context ,RequestContext(request))
+def format_cols_for_search(cols, searchWord):
+    stringCol = ''
+    count = 1
+    for col in cols:
+        if count != 1: stringCol += ' AND '
+        stringCol += col + " LIKE '%" + searchWord + "%'"
+        count += 1
+    
+    return stringCol
 
 def login(request):
     
-    if request.session['ft_client']:
-        return HttpResponseRedirect(reverse('tables'))
+    if request.session.get('ft_client'):
+        return HttpResponseRedirect(reverse('home'))
     
     if request.POST:
         token = ClientLogin().authorize(request.POST['username'], request.POST['password'])
-        ft_client = ftclient.ClientLoginFTClient(token)
-        request.session['ft_client'] = ft_client
-        return HttpResponseRedirect(reverse('tables'))
+        if token:
+            ft_client = ftclient.ClientLoginFTClient(token)
+            request.session['ft_client'] = ft_client
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            messages.error(request, 'Wrong email or password.')
         
     template_context = {}
     return render_to_response('login.html', template_context ,RequestContext(request))
 
 def logout(request):
     request.session['ft_client'] = ''
-    return HttpResponse()
+    return HttpResponseRedirect(reverse('login'))
+
+def is_logged(request):
+    if request.session.get('ft_client'):
+        return 1
+    else:
+        return 0
+    
+def is_allowed_to_view(ft_client, tableid):
+    results = ft_client.query(SQL().showTables())
+    tables = []
+    for table in results['rows']:
+        tables.append(table['table id'])
+    
+    if tableid in tables:
+        return 1
+    else:
+        return 0
+
