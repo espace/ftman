@@ -41,9 +41,9 @@ def new(request, tableid):
     if request.method == 'POST':
          my_post = request.POST.copy()
          my_post.pop("csrfmiddlewaretoken", None)
-
+         print my_post
          rowid = int(ft_client.query(SQL().insert(tableid, my_post)).split("\n")[1])
-         return HttpResponseRedirect(reverse('home'))
+         return HttpResponseRedirect(reverse('table', kwargs={'tableid': tableid}))
 
     results = ft_client.query(SQL().describeTable(tableid))
 
@@ -142,22 +142,25 @@ def format_cols_for_search(cols, searchWord):
     return stringCol
 
 def login(request):
-    
+    error = ''
     if request.session.get('ft_client'):
-        return HttpResponseRedirect(reverse('tables'))
+        return HttpResponseRedirect(reverse('home'))
     
     if request.POST:
         token = ClientLogin().authorize(request.POST['username'], request.POST['password'])
-        ft_client = ftclient.ClientLoginFTClient(token)
-        request.session['ft_client'] = ft_client
-        return HttpResponseRedirect(reverse('tables'))
+        if token:
+            ft_client = ftclient.ClientLoginFTClient(token)
+            request.session['ft_client'] = ft_client
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            error = 'Wrong email or password'
         
-    template_context = {}
+    template_context = {'error': error}
     return render_to_response('login.html', template_context ,RequestContext(request))
 
 def logout(request):
     request.session['ft_client'] = ''
-    return HttpResponse()
+    return HttpResponseRedirect(reverse('login'))
 
 def is_logged(request):
     if request.session.get('ft_client'):
