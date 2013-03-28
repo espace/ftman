@@ -6,6 +6,7 @@ import string
 import csv
 from django.conf import settings
 from django.contrib import auth
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts  import render_to_response
 from django.template import RequestContext
@@ -90,7 +91,8 @@ def table(request, tableid):
     if is_logged(request):
         ft_client = request.session.get('ft_client')
         if not is_allowed_to_view(ft_client, tableid):
-            return HttpResponseRedirect(reverse('index'))
+            messages.error(request, 'You are not allowed to view this table.')
+            return HttpResponseRedirect(reverse('home'))
     else:
         return HttpResponseRedirect(reverse('login'))
     
@@ -142,7 +144,7 @@ def format_cols_for_search(cols, searchWord):
     return stringCol
 
 def login(request):
-    error = ''
+    
     if request.session.get('ft_client'):
         return HttpResponseRedirect(reverse('home'))
     
@@ -153,9 +155,9 @@ def login(request):
             request.session['ft_client'] = ft_client
             return HttpResponseRedirect(reverse('home'))
         else:
-            error = 'Wrong email or password'
+            messages.error(request, 'Wrong email or password.')
         
-    template_context = {'error': error}
+    template_context = {}
     return render_to_response('login.html', template_context ,RequestContext(request))
 
 def logout(request):
