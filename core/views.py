@@ -105,6 +105,7 @@ def home(request):
     tables = ft_client.query(SQL().showTables())
     
     template_context = {'tables' : tables['rows']}
+
     return render_to_response('index.html', template_context ,RequestContext(request))
 
 def table(request, tableid):
@@ -208,3 +209,4 @@ def is_allowed_to_view(ft_client, tableid):
         return 1
     else:
         return 0
+
