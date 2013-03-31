@@ -24,7 +24,12 @@
         {% for key, value in row.items %}
         <td>{{ value }}</td>
         {% endfor %}
-        <td><a href="{% url row tableid=tableid rowid=row.rowid %}">view</a></td>
+        <td>
+            <a href="{% url row tableid=tableid rowid=row.rowid %}">view</a>
+            {% if relocateble %}
+                <a href="{% url relocate tableid=tableid rowid=row.rowid %}">relocate</a>
+            {% endif %}
+        </td>
     </tr>
     {% endfor %}
 </table>

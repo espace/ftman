@@ -74,6 +74,27 @@ def row(request, tableid, rowid):
 
     return render_to_response('row.html', template_context ,RequestContext(request))
 
+def relocate(request, tableid, rowid):
+
+    if is_logged(request):
+        ft_client = request.session.get('ft_client')
+        if not is_allowed_to_view(ft_client, tableid):
+            return HttpResponseRedirect(reverse('index'))
+    else:
+        return HttpResponseRedirect(reverse('login'))
+
+    if request.method == 'POST':
+         my_post = request.POST.copy()
+         my_post.pop("csrfmiddlewaretoken", None)
+
+         results = ft_client.query(SQL().update(tableid, my_post.keys(), my_post.values(), rowid))
+
+    results = ft_client.query(SQL().select(tableid, ['lat', 'long'], "rowid=" + rowid))
+
+    template_context = {'header' : results['header'], 'rows' : results['rows'], 'tableid': tableid, 'rowid': rowid}
+
+    return render_to_response('relocate.html', template_context ,RequestContext(request))
+
 def home(request):
 
     if is_logged(request):
@@ -109,7 +130,14 @@ def table(request, tableid):
     else:
         page = pager.page(1)
     
-    template_context = {'header' : results['header'], 'rows' : page.object_list, 'tableid': tableid, 'pager': pager, 'page': page}
+    #if the table has fields 'Lat' and 'Long' make it relocatable
+    fields = results['header']
+    l_labels = ['lat', 'long']
+    relocateble = False
+    if (True in [ label in fields for label in l_labels ]):
+        relocateble = True
+    
+    template_context = {'header' : results['header'], 'rows' : page.object_list, 'tableid': tableid, 'pager': pager, 'page': page, 'relocateble': relocateble}
     return render_to_response('table.html', template_context ,RequestContext(request))
 
 def search(request, tableid):

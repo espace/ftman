@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Row</title>
+    
+    <script src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery-gmaps-latlon-picker.css"/>
+    <script src="{{ STATIC_URL }}js/jquery-gmaps-latlon-picker.js"></script>
+</head>
+
+<body>
+
+<form action="" method="post">
+<fieldset class="gllpLatlonPicker">
+    <div class="gllpMap">Google Maps</div>
+    {% for row in rows %}
+        {% for key, value in row.items %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>
+                    <input name="{{ key }}" type="text" class="gllp{{key.capitalize}}itude" value="{{ value }}" />
+                </td>
+                
+            </tr>
+        {% endfor %}
+    {% endfor %}
+    <input type="hidden" class="gllpZoom" value="15"/>
+</fieldset>
+
+<input type="submit" value="Submit" />
+
+{% csrf_token %}
+
+</form>
+
+</body>
+</html>

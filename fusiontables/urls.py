@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'search/(?P<tableid>[-\w]+)$', 'core.views.search', name='search'),
     url(r'new/(?P<tableid>[-\w]+)$', 'core.views.new', name='new'),
     url(r'row/(?P<tableid>[-\w]+)/(?P<rowid>[-\w]+)$', 'core.views.row', name='row'),
+    url(r'relocate/(?P<tableid>[-\w]+)/(?P<rowid>[-\w]+)$', 'core.views.relocate', name='relocate'),
     url(r'delete/(?P<tableid>[-\w]+)/(?P<rowid>[-\w]+)$', 'core.views.delete', name='delete'),
     
     url(r'login', 'core.views.login', name='login'),
