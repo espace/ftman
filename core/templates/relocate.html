@@ -4,37 +4,57 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Row</title>
     
-    <script src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery-gmaps-latlon-picker.css"/>
-    <script src="{{ STATIC_URL }}js/jquery-gmaps-latlon-picker.js"></script>
+    <script type="text/javascript">
+    
+      function initialize() {
+        {% if rows.0.lat and rows.0.long %}
+            var myLatlng = new google.maps.LatLng({{ rows.0.lat }}, {{ rows.0.long }});
+            var myOptions = {
+                zoom: 12,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+        {% else %}
+            var myLatlng = new google.maps.LatLng(30, 30);
+            var myOptions = {
+                zoom: 5,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+        {% endif %}
+        
+        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        
+        var marker = new google.maps.Marker({
+            position: myLatlng, 
+            map: map,
+            draggable:true
+        });
+        
+        google.maps.event.addListener( marker, 'dragend',
+            function() {
+                document.getElementById('lat').value = marker.position.lat();
+                document.getElementById('lng').value = marker.position.lng();
+            }
+        );
+      }
+    </script>
+    
+    
 </head>
 
-<body>
+<body onload="initialize()">
+    
+    <div id="map_canvas" style="width:500px;height:500px;"> </div>
 
-<form action="" method="post">
-<fieldset class="gllpLatlonPicker">
-    <div class="gllpMap">Google Maps</div>
-    {% for row in rows %}
-        {% for key, value in row.items %}
-            <tr>
-                <td>{{ key }}</td>
-                <td>
-                    <input name="{{ key }}" type="text" class="gllp{{key.capitalize}}itude" value="{{ value }}" />
-                </td>
-                
-            </tr>
-        {% endfor %}
-    {% endfor %}
-    <input type="hidden" class="gllpZoom" value="15"/>
-</fieldset>
-
-<input type="submit" value="Submit" />
-
-{% csrf_token %}
-
-</form>
-
+    <form action="" method="post">
+        Lat: <input name="lat" id="lat" type="text" class="gllpLatitude" value="{{ rows.0.lat }}" />
+        Long: <input name="long" id="lng" type="text" class="gllpLongitude" value="{{ rows.0.long }}" />
+        <input type="submit" value="Submit" />
+        {% csrf_token %}
+    </form>
 </body>
+
 </html>

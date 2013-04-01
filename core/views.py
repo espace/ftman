@@ -89,7 +89,7 @@ def relocate(request, tableid, rowid):
 
          results = ft_client.query(SQL().update(tableid, my_post.keys(), my_post.values(), rowid))
 
-    results = ft_client.query(SQL().select(tableid, ['lat', 'long'], "rowid=" + rowid))
+    results = ft_client.query(SQL().select(tableid, ['lat', 'long', 'Address'], "rowid=" + rowid))
 
     template_context = {'header' : results['header'], 'rows' : results['rows'], 'tableid': tableid, 'rowid': rowid}
 
