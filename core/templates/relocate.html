@@ -8,23 +8,31 @@
     
     <script type="text/javascript">
     
-      function initialize() {
-        {% if rows.0.lat and rows.0.long %}
-            var myLatlng = new google.maps.LatLng({{ rows.0.lat }}, {{ rows.0.long }});
-            var myOptions = {
-                zoom: 12,
-                center: myLatlng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            }
-        {% else %}
-            var myLatlng = new google.maps.LatLng(30, 30);
-            var myOptions = {
-                zoom: 5,
-                center: myLatlng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            }
-        {% endif %}
-        
+      function initialize() 
+      {
+         {% if rows.0.lat and rows.0.long %}
+             set_marker({{rows.0.lat}}, {{rows.0.long}});
+             return;
+         {% endif %}
+         var address = '{{ rows.0.Address }}';
+         var geocoder = new google.maps.Geocoder();
+         geocoder.geocode( { 'address': address}, function(results, status) {
+             if (status == google.maps.GeocoderStatus.OK) {
+                document.getElementById('lat').value=results[0].geometry.location.lat();
+                document.getElementById('lng').value=results[0].geometry.location.lng();
+            
+                set_marker(results[0].geometry.location.lat(),results[0].geometry.location.lng());
+             }
+         });
+      }
+      
+      function set_marker(xLat, xLng) {
+        var myLatlng = new google.maps.LatLng(xLat, xLng);
+        var myOptions = {
+          zoom: 12,
+          center: myLatlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
         var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         
         var marker = new google.maps.Marker({

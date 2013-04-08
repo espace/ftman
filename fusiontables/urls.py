@@ -18,4 +18,5 @@ urlpatterns = patterns('',
     
     url(r'login', 'core.views.login', name='login'),
     url(r'logout', 'core.views.logout', name='logout'),
+    url(r'oauth2callback', 'core.views.oauth', name='oauth')
 )

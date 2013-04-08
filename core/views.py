@@ -13,6 +13,7 @@ from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.core.urlresolvers import reverse, get_urlconf
 
+from core.fusiontables.authorization.oauth import OAuth
 from core.fusiontables.authorization.clientlogin import ClientLogin
 from core.fusiontables.sql.sqlbuilder import SQL
 from core.fusiontables import ftclient
@@ -96,18 +97,42 @@ def relocate(request, tableid, rowid):
     return render_to_response('relocate.html', template_context ,RequestContext(request))
 
 def home(request):
-
-    if is_logged(request):
-        ft_client = request.session.get('ft_client')
-    else:
-        return HttpResponseRedirect(reverse('login'))
+    print '##############################'
+    consumer_key = settings.GOOGLE_APP_KEY
+    consumer_secret = settings.GOOGLE_APP_SECRET
     
-    tables = ft_client.query(SQL().showTables())
+    url, token, secret = OAuth().generateAuthorizationURL(settings.GOOGLE_APP_KEY, settings.GOOGLE_APP_SECRET, settings.GOOGLE_APP_KEY)
+    print "Visit this URL in a browser: ", url
+    raw_input("Hit enter after authorization")
     
-    template_context = {'tables' : tables['rows']}
+    token, secret = OAuth().authorize(settings.GOOGLE_APP_KEY, settings.GOOGLE_APP_SECRET, token, secret)
+    oauth_client = ftclient.OAuthFTClient(settings.GOOGLE_APP_KEY, settings.GOOGLE_APP_SECRET, token, secret)
+    
+    print '##############################'
+    print token
+    print '##############################'
+    print secret
+    print '##############################'
+    
+    #show tables
+    results = oauth_client.query(SQL().showTables())
+    print results
+    print '##############################'
+#    if is_logged(request):
+#        ft_client = request.session.get('ft_client')
+#    else:
+#        return HttpResponseRedirect(reverse('login'))
+#    
+#    tables = ft_client.query(SQL().showTables())
+#    
+#    template_context = {'tables' : tables['rows']}
+    template_context = {'tables' : {}}
 
     return render_to_response('index.html', template_context ,RequestContext(request))
 
+def oauth(request):
+    print request
+    
 def table(request, tableid):
     
     if is_logged(request):
