@@ -27,5 +27,5 @@ Based on Python 2.7 and Django 1.4.1
 
 ## Notes
 
-FTMan allows you to manage all fusiontables that you already have access to it.
-FTMan manages any fusiontable regardless of its structure.
+- FTMan allows you to manage all fusiontables that you already have access to it.
+- FTMan manages any fusiontable regardless of its structure.
