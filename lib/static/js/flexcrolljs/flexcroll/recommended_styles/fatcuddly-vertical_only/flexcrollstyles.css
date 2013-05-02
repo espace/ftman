@@ -1,0 +1,18 @@
+/* Scroll Bar Master Styling Starts Here */
+/* All comments can be freely removed from the css */
+
+/*  scrollgeneric is used for corrective styling of elements, and should not be modified or removed */ 
+.scrollgeneric {line-height: 1px;font-size: 1px;position: absolute;top: 0; left: 0;}
+
+.vscrollerbar {width: 36px;background: #5EC0A7 url(scrollbar.png) -36px 0px repeat-y;}
+.vscrollerbarbeg {height: 24px !important;width: 36px;background: url(scrollbar.png) -108px -32px no-repeat;}
+.vscrollerbarend {height: 24px;width: 36px;background: url(scrollbar.png) -108px 0px no-repeat;}
+.vscrollerbase {width: 36px;background: #D4F6F2 url(scrollbar.png) 0px 0px repeat-y;}
+.vscrollerbasebeg {width: 36px;height: 28px !important;background: url(scrollbar.png) -72px -28px no-repeat;}
+.vscrollerbaseend {height: 28px;width: 36px;background: url(scrollbar.png)  -72px 0px no-repeat;}
+.hscrollerbase {height: 16px; background-color: white;}
+.hscrollerbar {height: 16px; background-color: black;}
+.vscrollerbar, .hscrollerbar {padding: 28px;z-index: 2;}
+.scrollerjogbox {width: 36px;height: 16px;top: auto; left: auto;bottom: 0px; right: 0px;background: #37917A;}
+
+/* Scroll Bar Master Styling Ends Here */

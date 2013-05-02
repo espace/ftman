@@ -1,0 +1,140 @@
+/*====================  header  ====================*/
+
+.inner-page .header{
+  background: url(../images/header_blurred_bg4.jpg) no-repeat center -100px;
+  height: 170px;
+  border: solid 1px #e2decb;
+}
+.header h1{
+      font: 40px/32px "GESSTwoMediumRegular",Tahoma,Geneva,sans-serif;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 20px;
+    color: #008f8a;
+}
+.mazoma{
+  background: #fafafa;
+  border: solid 1px #dbdbdb;
+  -webkit-border-radius: 0 0 10px 10px;
+     -moz-border-radius: 0 0 10px 10px;
+          border-radius: 0 0 10px 10px;
+  box-shadow: inset 0 -20px 20px rgba(0,0,0,0.03),0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  width: 100%;
+  float: right;
+}
+.mazoma .box_content{
+  display: none;
+}
+.mazoma .span2:first-child{
+  margin-right: 175px;
+}
+.mazoma .span2{
+  margin-top: -100px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.mazoma .span2 h4{
+  font:16px/22px "jalalBold",Tahoma,Geneva,sans-serif;
+  background: #f6f6f6;
+  color: #4b505f;
+  border: solid 1px #e7e7e7;
+  -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+          border-radius: 10px;
+  box-shadow:0 1px 1px rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+  width: 70%;
+  text-align: center;
+  padding: 10px 5px 2px 5px;
+  position: relative;
+  z-index: 1000;
+  margin-top: -25px;
+  margin-right: 15px;
+
+}
+.mazoma_toggle{
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 20px;
+  bottom: 0;
+  opacity: 0.7;
+}
+.mazoma .span2 ul li{
+  line-height: 24px;
+}
+.mazoma .span2 ul li i{
+  opacity: 0.7;
+}
+.mazoma .span3 .box_content{
+
+}
+
+/*====================  generic conetnt  ====================*/
+
+
+
+.generic_conetnt .tabs_group li{
+  width: 100% ;
+  margin-left: 0;
+}
+.generic_conetnt .tabs_group li a{
+  text-align: right;  
+}
+.generic_conetnt.box .box_content h2{
+  font: 24px/28px "jalalBold",Tahoma,Geneva,sans-serif;
+}
+.generic_conetnt.box .box_content .inline_img{
+  margin-bottom: 20px
+}
+.generic_conetnt .date{
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 10px;
+  display: block;
+}
+.box_content .img_dicr{
+  color: #999;
+  padding: 3px 10px;
+  background: #e7e7e7;
+  display: block;
+
+}
+
+
+/*====================  comments  ====================*/
+
+.comments{
+
+}
+
+.comments .tabs_group li{
+  width: 100% ;
+  margin-left: 0;
+}
+.comments .tabs_group li a{
+  text-align: right;  
+}
+/*====================  breadcrumb  ====================*/
+.breadcrumb{
+  background: none;
+  border: none;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+  box-shadow: 0 0 0;
+  margin-bottom: 0px;
+}
+.breadcrumb i.icon-home{
+  opacity: 0.5;
+  margin-left:5px;
+  background-size: 418px; 
+  background-position: 0 -20px; 
+}
+
+.breadcrumb_cont{
+  margin-right: 230px;
+}

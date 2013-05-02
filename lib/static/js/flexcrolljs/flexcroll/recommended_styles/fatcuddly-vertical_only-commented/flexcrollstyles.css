@@ -1,0 +1,79 @@
+/* Scroll Bar Master Styling Starts Here */
+/* All comments can be freely removed from the css */
+
+/*  scrollgeneric is used for corrective styling of elements, and should not be modified or removed */ 
+.scrollgeneric {
+line-height: 1px;
+font-size: 1px;
+position: absolute;
+top: 0; left: 0;
+}
+
+.vscrollerbar {
+width: 36px;
+background: #5EC0A7 url(scrollbar.png) -36px 0px repeat-y;
+/* do not forget to put colors for backgrounds for before image(s) can load , this is more important for
+the scrollbar itself than the scrollbase, as user can live without an image on the base but cannot see
+any scrollbar when images cannot load. */
+}
+.vscrollerbarbeg {
+/* height of this element is normally auto set to fit the scrollbase, to cover the base... */
+height: 24px !important;
+/* ...unless we force the size using an !important decleration */
+/* forcing would not be required if Webkit-Safari did not have a background-repeat bug*/
+/* this may be fixed by the time Safari 3.0 is released. */
+width: 36px;
+background: url(scrollbar.png) -108px -32px no-repeat;
+}
+.vscrollerbarend {
+/* height of this element should be set */
+height: 24px;
+width: 36px;
+background: url(scrollbar.png) -108px 0px no-repeat;
+}
+
+.vscrollerbase {
+width: 36px;
+background: #D4F6F2 url(scrollbar.png) 0px 0px repeat-y;
+}
+.vscrollerbasebeg {
+/* height of this element is auto set to fit the scrollbase, to cover the base */
+/* this element can be used to place a faux top arrow image */
+width: 36px;
+height: 28px !important; /*Again, the safari fix, normally this line is not needed.*/
+background: url(scrollbar.png) -72px -28px no-repeat;
+}
+.vscrollerbaseend {
+/* height of this element should be set */
+/* this element can be used to place a faux bottom arrow image */
+height: 28px;
+width: 36px;
+background: url(scrollbar.png)  -72px 0px no-repeat;
+}
+
+/* do not forget to give horizontal scrollbars some color properties even if you don't plan on using them */
+.hscrollerbase {
+height: 16px; background-color: white;
+}
+.hscrollerbar {
+height: 16px; background-color: black;
+}
+
+.vscrollerbar, .hscrollerbar {
+/* paddings of these elements will decide how far the scrollbar will stop in both ends, and are not actually
+used for styling, and are set to 0 by the script, here we will set them the size of our faux arrows */
+padding: 28px;
+z-index: 2;
+}
+
+/* properties for scroller jog box, just in case */
+.scrollerjogbox {
+width: 36px;
+height: 16px;
+top: auto; left: auto;
+bottom: 0px; right: 0px;
+background: #37917A;
+}
+
+
+/* Scroll Bar Master Styling Ends Here */

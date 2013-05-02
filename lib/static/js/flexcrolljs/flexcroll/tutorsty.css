@@ -1,0 +1,261 @@
+/* Atom style */
+body {
+	font-family: "Trebuchet MS", Trebuchet, Verdana, Sans-Serif;
+	font-size: small;
+	background-color: #D3CC9F;
+	margin 0;
+	padding: 4em;
+	padding-top: 0.5em;
+}
+
+h2 {
+border: 0px solid #006;
+border-bottom-width: 2px;
+padding-bottom: 0.5em;
+}
+
+#anchors {
+margin-top:2em;
+clear: both;
+}
+
+.solution, .menudescription, .tagname, .file , .style, .htmlelement{
+color: #14394C;
+font-weight: bolder;
+}
+
+.file {
+font-style:italic;
+background-color: white;
+}
+
+.style, .js {
+background-color: #FBF1EE;
+}
+
+.warning {
+font-weight: bolder;
+color: #600;
+}
+
+.default {
+font-weight: bolder;
+}
+
+#footer {
+width: 50em;
+font-size: 85%;
+clear: both;
+}
+
+.copyrightnotice {
+font-size: 85%;
+}
+
+.testimage {
+vertical-align: middle;
+}
+
+.person {
+font-style: italic;
+font-weight: bolder;
+color: #8F1111;
+}
+
+dl {
+margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+clear: both;
+}
+
+.variables dt {
+text-align: right;
+float: left;
+clear: both;
+width: 20%;
+margin: 0;
+display: inline;
+padding: 0.2em 1% 0.2em 1%;
+background-color: white;
+font-size: 80%;
+}
+
+
+.variables dd {
+width: auto;
+margin-left: 23%;
+margin-bottom: 0.5em;
+}
+
+.functions dt {
+background-color: white;
+display: inline;
+line-height: 2em;
+}
+
+#outputlist dt span {
+color: #900;
+}
+
+#output:after, dd:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+pre.code { 
+	padding: 0.2em 0.5em 0.5em;
+	display: block;
+	margin: 1em auto;
+	border: 2px dotted #aa2222;
+	background-color: white;
+	
+}
+
+ul.code {
+	list-style-type: none;
+}
+
+
+ul li, ol li {
+margin-bottom: 0.3em;
+}
+
+pre.titled, pre.code.titled {
+	margin-top: -1em;
+	padding-top: 1.2em;
+	}
+
+span.pretitle, h5.pretitle {
+	background-color: #411;
+	background-image: none;
+	width: 30em;
+	padding: 0 0.6em;
+	margin: 0 0 0 1%;
+	border: 4px solid #A22;
+	position: relative;
+	display:block;
+	color: white;
+	}
+
+.exampleholder {
+position: relative; height: 280px;
+}
+
+.demo {
+padding: 2px;
+position: absolute;
+}
+
+.demo:hover{
+padding: 0;
+border: 2px solid blue;
+}
+
+.demo.vscrollerbase {
+height: 260px; width:60px; background-color: #00cc00; position:absolute; top: 0; left: 0;
+}
+
+.demo.vscrollerbasebeg{
+height: 216px; width: 40px; background-color: #008800;
+top: 2px; left: 18px;
+}
+
+.newstyle.demo.vscrollerbasebeg{
+height: 36px;
+}
+
+.newstyle.demo.vscrollerbasemid{
+height: 176px; width: 40px; background-color: #11AA11;
+top: 42px; left: 18px;
+}
+
+.demo.vscrollerbaseend{
+height: 36px; width: 40px; background-color: #005500;
+top: 222px; left: 18px;
+}
+	
+.demo.vscrollerbar {
+height: 150px; top: 25px; width:55px; background-color: #cc0000;
+left: 80px;
+}
+
+.demo.vscrollerbarbeg{
+height: 106px; width: 35px; background-color: #880000;
+top: 27px; left: 98px;
+}
+
+.newstyle.demo.vscrollerbarbeg{
+height: 36px;
+}
+
+.newstyle.demo.vscrollerbarmid{
+height: 66px; width: 35px; background-color: #AA1111;
+top: 67px; left: 98px;
+}
+
+
+.demo.vscrollerbarend{
+height: 36px; width: 35px; background-color: #550000;
+top: 137px; left: 98px;
+}
+
+.demo.hscrollerbase {
+width: 260px; height:60px; background-color: #00cc00;top: 198px; left: 160px;
+}
+
+.demo.hscrollerbasebeg{
+width: 216px; height: 40px; background-color: #008800;
+top: 216px;
+left: 162px;
+}
+
+.newstyle.demo.hscrollerbasebeg{
+width: 36px;
+}
+
+.newstyle.demo.hscrollerbasemid{
+width: 176px; height: 40px; background-color: #11AA11;
+top: 216px; left: 202px;
+}
+
+
+.demo.hscrollerbaseend{
+width: 36px; height: 40px; background-color: #005500;
+left: 382px;
+top: 216px;
+}
+
+.demo.hscrollerbar {
+width: 150px; height:55px; background-color: #cc0000;
+left: 190px; top: 125px;
+}
+
+.demo.hscrollerbarbeg{
+width: 110px; height: 35px; background-color: #880000;
+left: 192px; top: 143px;
+}
+
+.newstyle.demo.hscrollerbarbeg{
+width: 36px;
+}
+
+.newstyle.demo.hscrollerbarmid{
+width: 70px; height: 35px; background-color: #AA1111;
+top: 143px; left: 232px;
+}
+
+.demo.hscrollerbarend{
+width: 33px; height: 35px; background-color: #550000;
+left: 306px; top: 143px;
+}
+
+.demo.scrollerjogbox {
+top: 100px; left: 430px; width: 40px; height: 40px; background-color: #000088;
+}
+
+

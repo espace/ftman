@@ -1,0 +1,107 @@
+{% extends 'base.html' %} 
+
+{% load filters %}
+
+{% block title %}{{ tableid|tabletag:'name' }}{% endblock %}
+
+{% block content %}
+
+<h2 class="span7">{{ tableid|tabletag:'name' }} 
+    <a target="_blank" href="https://www.google.com/fusiontables/DataSource?docid={{ tableid }}">
+        <small style="font-family: tahoma; font-size: 11px;">Google Fusiontable</small>
+    </a>
+</h2>
+
+<!--<form action="{% url search tableid=tableid %}" method="get">
+    <!--   search table <input type="text" name="searchKey" id="searchKey" />
+    <input type="submit" value="Search" />
+
+    <div class="input-prepend" style="direction:ltr;">
+        <button class="btn" type="button"><i class="icon-search"></i>&nbsp;</button>
+        <input class="span4" style="margin-left:-10px;" name="searchKey" id="searchKey" placeholder="البحث" type="text">
+    </div>
+</form>-->
+
+<div class="well" style="margin-top: 45px">
+    <div class="btn-toolbar pull-left">
+    <a href="{% url new tableid=tableid %}"  class="btn btn-primary">
+            <i class="icon-plus-sign icon-white"></i>
+            {{ tableid|tabletag:'add_row' }}
+    </a>
+
+    </div>
+    <table class="table">
+      <thead>
+            <tr>
+                {% for col in header %}
+                    {% if col != 'rowid' and col != 'index' and col != 'message' and col != 'lat_long' %}
+                        <th>{{ col|translate:tableid }}</th>
+                    {% endif %}
+                {% endfor %}
+                <th></th>
+            </tr>
+      </thead>
+      <tbody>
+         {% for row in rows %}
+            <tr>
+                {% for key, value in row.items %}
+                    {% if key != 'rowid' and key != 'index' and key != 'message' and key != 'lat_long' %}
+                        <td>{{ value|linebreaksbr }}</td>
+                    {% endif %}
+                {% endfor %}
+                <td>
+                    <a href="{% url row tableid=tableid rowid=row.rowid %}"><i class="icon-pencil"></i></a> &nbsp;
+                    <a href="{% url delete tableid=tableid rowid=row.rowid %}" onclick="return confirm('هل متأكد إنك تريد الحذف ?');" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+       
+        
+      </tbody>
+    </table>
+</div>
+<div class="pagination">
+    <ul>
+        {% if pager.num_pages > 1 %}
+            <li><a href="{% url table tableid=tableid %}?page=1">First</a></li>
+        {% endif %}
+        {% if page.has_previous %}
+            <li><a href="{% url table tableid=tableid %}?page={{page.previous_page_number}}">Prev</a></li>
+        {% endif %}
+        
+        {% for page_num in page_range|slice:"5" %}
+            {% ifequal page_num page.number %}
+                <li><b><a href="{% url table tableid=tableid %}?page={{page_num}}">{{page_num}}</a></b></li>
+            {% else %}
+                <li><a href="{% url table tableid=tableid %}?page={{page_num}}">{{page_num}}</a></li>
+            {% endifequal %}
+        {% endfor %}
+        
+        {% if page.has_next %}
+            <li><a href="{% url table tableid=tableid %}?page={{page.next_page_number}}">Next</a></li>
+        {% endif %}
+
+        {% if pager.num_pages > 1 %}
+            <li><a href="{% url table tableid=tableid %}?page={{pager.num_pages}}">Last</a></li>
+        {% endif %}
+    </ul>
+
+
+</div>
+
+
+<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Delete Confirmation</h3>
+    </div>
+    <div class="modal-body">
+        <p class="error-text">Are you sure you want to delete the user?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-danger" data-dismiss="modal">Delete</button>
+    </div>
+</div>
+
+{% endblock %}

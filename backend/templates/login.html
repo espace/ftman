@@ -1,0 +1,20 @@
+<script src="{{STATIC_URL}}jquery.js"></script>
+
+
+<script>
+    function openAuthWindow()
+    {
+        $.ajax({
+            url: "{% url ajax_generate_auth_url %}",
+        }).done(function( date ) {
+            window.open(date, 'Authenticate', 'width=800,height=600')
+        });
+    }
+    
+    function refreshPage(){
+        document.location.reload();
+    }
+</script>
+
+
+<div align="left" style="margin-top: 10px"><a href='#' onclick="openAuthWindow()"><img src="{{STATIC_URL}}ico/google_oauth.ico" width="24px" height="24px" /></a></div>

@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="A cross-browser javascript that enables you to style your scroll-bars with CSS" />
+<title>fleXcroll V2.0 User Guide</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="author" content="Emrah BASKAYA" />
+<script src="/mint/?js" type="text/javascript"></script>
+<link href="tutorsty.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id='content'>
+	<h1>fleXcroll V2.1.1 Basic Usage Guide -update:03.02.2013</h1>
+	<h2>Setting up fleXcroll</h2>
+	<ol>
+	<li><span class="file">flexcroll.js</span> has to be included <span class="tagname">in the head element</span> of the html document.
+		<ul class="code">
+			<li>
+				<pre class="code"><span style=' color: Blue;'>&lt;</span><span style=' color: Maroon;'>script</span> <span style=' color: Red;'>type</span>='text/javascript' <span style=' color: Red;'>src</span>="<span style=' color: Blue;'>flexcroll.js</span>"<span style=' color: Blue;'>&gt;</span><span style=' color: Blue;'>&lt;</span>/<span style=' color: Maroon;'>script</span><span style=' color: Blue;'>&gt;</span></pre>
+			</li>
+		</ul>
+	</li>
+	<li>Styles relating to your custom scrollbars should be added inside a CSS file.
+	<ul>
+	<li><strong>fleXcroll won't work without proper CSS that styles its scrollbars.</strong></li>
+	<li>Minimum required CSS for fleXcroll to run, without the need of any images, can be seen in <span class="file">variations-howto's/minimal</span>
+	in the <span class="file">fleXcroll example archive</span> that can be downloaded from <a href="http://www.hesido.com/web.php?page=customscrollbar">fleXcroll page</a>.</li>
+	</ul>
+	<li>fleXcroll only works with the HTML element <span class="htmlelement">div<span></li>
+	<li>You should style your target div to <span class="style">overflow: auto;</span></li>
+	<li><span class="style">height: auto;</span> style is not currently supported. Percentage heights directly applied on the fleXcroll target div may not work correctly on some browsers.</li>
+	</ol>
+	
+	<h2>Applying fleXcroll to your div</h2>
+	<h3>Automatic starting on page load</h3>
+	<ul>
+		<li>Add the flexcroll class to your div.
+		<ul class="code"><li><span class="pretitle">Example - HTML</span>
+		<pre class="code titled">&lt;div <span style=' color: Blue;'>class</span>=<span style=' color: Maroon;'>"flexcroll"</span>&gt;</pre>
+		</li></ul>
+		</li>
+	</ul>
+	<h4>Fast Automatic Starting</h4>
+	<ul>
+	<li>If you have too many images delaying page load, fleXcroll will take time to initialize. If you are not using any javascript libraries for DomContentLoaded, you can still use the following trick to get a fast start:
+	<ul>
+	<li>Add <span class="htmlelement">&lt;div id='flexcroll-init'&gt;&lt;/div&gt;</span> at the end of your html, right before the <span class="htmlelement">&lt;/body&gt;</span> end tag, so it looks like:
+		<ul class="code"><li><span class="pretitle">Example - HTML</span>
+		<pre class="code titled"><span style=' color: Blue;'>&lt;</span><span style=' color: Maroon;'>div</span> <span style=' color: Red;'>id</span>='flexcroll-init'<span style=' color: Blue;'>&gt;</span><span style=' color: Blue;'>&lt;</span>/<span style=' color: Maroon;'>div</span><span style=' color: Blue;'>&gt;</span> 
+<span style=' color: Blue;'>&lt;</span>/<span style=' color: Maroon;'>body</span><span style=' color: Blue;'>&gt;</span> 
+<span style=' color: Blue;'>&lt;</span>/<span style=' color: Maroon;'>html</span><span style=' color: Blue;'>&gt;</span></pre></li></ul>
+	</li>
+	</ul>
+	</li>
+	</ul>
+	<h3>Manual starting</h3>
+	<ul>
+	<li>For various reasons, you may need to run fleXcroll at a specific point in your javascript, for example, you may use your own DomContentLoaded code,
+	or you may apply fleXcroll to a div that is not present on page load. <strong>Make sure the DOM contents are fully loaded, or otherwise fleXcroll may not initialize properly or initialize at all</strong>.
+		<ul class="code"><li>
+		<span class="pretitle">Application of fleXcroll using id - Javascript</span>
+		<pre class="code titled">fleXenv.fleXcrollMain(<span style=' color: Maroon;'>"your-div-id"</span>);</pre>
+		</li>
+		<li><span class="pretitle">Application of fleXcroll using javascript element - Javascript</span>
+		<pre class="code titled">fleXenv.fleXcrollMain(<span style=' color: Maroon;'>yourDivElement</span>);</pre>
+		</li>
+		<li><span class="pretitle">Application of fleXcroll using a custom class - Javascript</span>
+		<pre class="code titled">fleXenv.initByClass(<span style=' color: Maroon;'>"a-class-name-of-your-choice"</span>);</pre>
+		</li>
+		</ul>
+	</li>
+	</ul>
+	<h2>Styling your scroll bars</h2>
+	<h3>Automatically generated scrollbars (recommended)</h3>
+	<p>fleXcroll creates necessary div elements for scrollbars on-the-fly, you just need to style those scrollbars for them to be visible. For styling, fleXcroll gives class names to these dynamically generated divs.
+	Vertical boxes on the left stands for the vertical scroller, and horizontal boxes on the left stands for the horizontal scroller. The scrollbars are under the fleXcroll-applied div in the DOM tree.</p>
+	<p>Hover to see the class names associated with the scrollers</p>
+	<h4>Version 2.0.0</h4>
+	<div class="exampleholder">
+	<div class="demo vscrollerbase" title=".vscrollerbase : used as vertical scroll track, houses the vertical scrollbar."></div>
+	<div class="demo vscrollerbasebeg" title=".vscrollerbasebeg : height automatically set to fit the scrollbase, unless forced by user."></div>
+	<div class="demo vscrollerbaseend" title=".vscrollbaseend : height has to be set by the user"></div>
+
+	<div class="demo vscrollerbar" title=".vscrollerbar : used as vertical scrollbar. Height of scrollbar automatically set to reflect content size, unless forced by user."></div>
+	<div class="demo vscrollerbarbeg" title=".vscrollerbarbeg : height automatically set to fit the scrollbar, unless forced by user."></div>
+	<div class="demo vscrollerbarend" title=".vscrollerbarend : height has to be set by the user."></div>	
+
+	
+	<div class="demo hscrollerbase" title=".hscrollerbase : used as horizontal scroll track, houses the horizontal scrollbar."></div>
+	<div class="demo hscrollerbasebeg" title=".hscrollerbasebeg : width automatically set to fit the scrollbase, unless forced by user."></div>
+	<div class="demo hscrollerbaseend" title=".hscrollbaseend : width has to be set by the user"></div>
+
+	<div class="demo hscrollerbar" title=".hscrollerbar : used as horizontal scrollbar. Width of scrollbar automatically set to reflect content size, unless forced by user."></div>
+	<div class="demo hscrollerbarbeg" title=".hscrollerbarbeg : width automatically set to fit the scrollbar, unless forced by user."></div>
+	<div class="demo hscrollerbarend" title=".hscrollerbarend : width has to be set by the user."></div>
+
+	<div class="demo scrollerjogbox" title=".scrollerjogbox : This is visible only when both vertical and horizontal scrollbars are visible"></div>
+
+	
+	</div>
+	
+	<h4>Version 2.1.1 (New styling method)</h4>
+	<p>fleXcroll 2.1.1 provides new elements in the middle to make it easier to style alpha transparent scrollbars, and also makes it easier to put images in the middle of the scrollbase and
+	scrollbar. These middle objects are only activated when basebeg, barbeg elements have a forced size (using !important CSS styles). This way, compatibility with older styles are preserved. </p>
+		<div class="exampleholder">
+	<div class="demo vscrollerbase" title=".vscrollerbase : used as vertical scroll track, houses the vertical scrollbar."></div>
+	<div class="newstyle demo vscrollerbasebeg" title=".vscrollerbasebeg : When this element's height is forced by the user using !important, fleXcroll enters 2.1.1 style mode and adds another div in the middle."></div>
+	<div class="newstyle demo vscrollerbasemid" title=".vscrollerbasemid : When .vscrollerbasebeg width is forced, fleXcroll adds this div to span the middle part, the size is automatically set by fleXcroll."></div>	
+	<div class="demo vscrollerbaseend" title=".vscrollbaseend : height has to be set by the user"></div>
+
+	<div class="demo vscrollerbar" title=".vscrollerbar : used as vertical scrollbar. Height of scrollbar automatically set to reflect content size, unless forced by user."></div>
+	<div class="newstyle demo vscrollerbarbeg" title=".vscrollerbarbeg : When this element's height is forced by the user using !important, fleXcroll enters 2.1.1 style mode and adds another div in the middle."></div>
+	<div class="newstyle demo vscrollerbarmid" title=".vscrollerbarmid : When .vscrollerbarbeg height is forced, fleXcroll adds this div to span the middle part, the size is automatically set by fleXcroll."></div>
+	<div class="demo vscrollerbarend" title=".vscrollerbarend : height has to be set by the user."></div>	
+
+	
+	<div class="demo hscrollerbase" title=".hscrollerbase : used as horizontal scroll track, houses the horizontal scrollbar."></div>
+	<div class="newstyle demo hscrollerbasebeg" title=".hscrollerbasebeg : When this element's width is forced by the user using !important, fleXcroll enters 2.1.1 style mode and adds another div in the middle."></div>
+	<div class="newstyle demo hscrollerbasemid" title=".hscrollerbasemid : When .hscrollerbasebeg width is forced, fleXcroll adds this div to span the middle part, the size is automatically set by fleXcroll."></div>	
+	<div class="demo hscrollerbaseend" title=".hscrollbaseend : width has to be set by the user"></div>
+
+	<div class="demo hscrollerbar" title=".hscrollerbar : used as horizontal scrollbar. Width of scrollbar automatically set to reflect content size, unless forced by user."></div>
+	<div class="newstyle demo hscrollerbarbeg" title=".hscrollerbarbeg : When this element's width is forced by the user using !important, fleXcroll adds another div in the middle."></div>
+	<div class="newstyle demo hscrollerbarmid" title=".hscrollerbarmid : When .hscrollerbarbeg width is forced, fleXcroll adds this div to span the middle part, the size is automatically set by fleXcroll."></div>
+	<div class="demo hscrollerbarend" title=".hscrollerbarend : width has to be set by the user."></div>
+
+	<div class="demo scrollerjogbox" title=".scrollerjogbox : This is visible only when both vertical and horizontal scrollbars are visible"></div>
+
+	
+	</div>
+
+	
+	<ul>
+	<li>Please see the <span class="file">fleXcroll example archive</span> on the <a href="http://www.hesido.com/web.php?page=customscrollbar">fleXcroll page</a> and examine the CSS files to see how to style your scrollbars.</li>
+	<li>fleXcroll currently does not support true arrows in the scrollbars, faux arrow images can still be used as background images.</li>
+	</ul>
+	
+	
+	<h3>External scrollbars</h3>
+	<p>As of version 2.0, fleXcroll supports external scrollbars, that is, scrollbars that are structured in the html of the document. For this, please see the
+	<span class="file">fleXcroll example archive</span> on the <a href="http://www.hesido.com/web.php?page=customscrollbar">fleXcroll page</a>.</p>
+
+	<h2>CSS tricks</h2>
+	
+	<h3>Arrows</h3>
+	<p>You can place your arrow images inside <span class="htmlelement">.vscrollerbasebeg</span>, <span class="htmlelement">.vscrollerbaseend</span>, <span class="htmlelement">.hscrollerbasebeg</span>,
+	<span class="htmlelement">.hscrollerbaseend</span>. However, you'll see that the scrollbars overlap these areas.</p>
+	<p>To remedy this, you'll apply paddings on the scrollbars. These paddings <strong>are not used for styling the scrollbars</strong> but will be used to know how much scrollbars will be padded
+	against the scrolltrack, and will be set to 0 once they are read by fleXcroll.</p>
+	<ul class="code"><li>
+	<span class="pretitle">Example - Arrows - CSS</span>
+	<pre class="code titled">.vscrollerbar, .hscrollerbar { 
+padding: <span style=' color: Maroon;'>16</span>px; 
+}</pre>
+	</li>
+	</ul>
+	<p>The top padding provides space for top arrow, the left padding provieds space for left arrow, and so on. <strong>They can be set individually.</strong></p>
+	
+	<h3>Fixed size scrollbars</h3>
+	<p>If you don't want the scrollbar size to be set automatically, for example, if you want the scrollbar to be 100px big, you can set it to a fixed size using the following trick:</p>
+	<ul class="code"><li>
+	<span class="pretitle">Example - fixed height vertical scrollbar - CSS</span>
+	<pre class="code titled">.vscrollerbase { 
+height: <span style=' color: Maroon;'>100</span>px !important; 
+}</pre>
+	</li>
+	<li>
+	<span class="pretitle">Example - fixed width horizontal scrollbars - CSS</span>
+	<pre class="code titled">.hscrollerbase { 
+width: <span style=' color: Maroon;'>100</span>px !important!; 
+}</pre>
+	</li>
+	</ul>
+	<h3>Always display scrollbase (scroll-track)</h3>
+	<p>If you want to keep the scroll-track visible whether there's enough content to warrant a scrollbar or not, you can use the following trick:</p>
+	
+	<ul class="code"><li>
+	<span class="pretitle">Example - always display vertical scrollbase - CSS</span>
+	<pre class="code titled">.vscrollerbase { 
+visibility: visible !important; 
+}</pre>
+	</li>
+<li>
+	<span class="pretitle">Example - always display horizontal scrollbase - CSS</span>
+	<pre class="code titled">.hscrollerbase { 
+visibility: visible !important; 
+}</pre>
+	</li>
+	</ul>
+	<h3>Put the vertical scrollbar on the left-side</h3>
+		<ul class="code"><li>
+	<span class="pretitle">Example - put scrollbar on left - CSS</span>
+	<pre class="code titled">.vscrollerbase { 
+.vscrollerbase {left: 0 !important;}
+}</pre>
+	</li>
+	</ul>
+	<h2>fleXcroll and printing</h2>
+	<p>You can allow printing of fleXcroll content by adding the following CSS rules:</p>
+	<ul class="code">
+	<li>
+	<span class="pretitle">Printing - non-specific - CSS</span>
+	<pre class="code titled">@media print { 
+div { 
+height: <span style=' color: Blue;'>auto</span>!important; width: <span style=' color: Blue;'>auto</span>!important; 
+position: <span style=' color: Blue;'>static</span>!important; margin: <span style=' color: Maroon;'>0</span>!important; padding: <span style=' color: Maroon;'>0</span>!important 
+} 
+.scrollgeneric {display: none;} 
+} 
+</pre>
+	</li>
+		<li>If you want to make just fleXcroll contents printable, and have the rest of your page styled as is:
+	<span class="pretitle">Printing - specific to fleXcroll divs - CSS</span>
+	<pre class="code titled">@media print { 
+.flexcrollactive, .flexcrollactive div  { 
+height: <span style=' color: Blue;'>auto</span>!important; width: <span style=' color: Blue;'>auto</span>!important; 
+position: <span style=' color: Blue;'>static</span>!important; margin: <span style=' color: Maroon;'>0</span>!important; padding: <span style=' color: Maroon;'>0</span>!important 
+} 
+.scrollgeneric {display: none;} 
+} 
+</pre>
+	</li>
+	</ul>
+	<h2>fleXcroll and embedding flash content</h2>
+	<p>Firefox has a bug with embedded flash content, where the embed is still displayed in overflowed portions of the content.
+	To remedy this problem, use of <span class="tagname">&lt;embed&gt;</span> tag should be avoided, you should use <span class="tagname">&lt;object&gt;</span> instead.
+	To see how to do this, please see <a href="http://www.dexterityunlimited.com/articles/?p=6">how to remove the embed tag</a> (link to external webpage).
+	If there are still problems, after removing the embeds as mentioned in the article, add the following param:
+<span class="tagname">&lt;param name=&quot;wmode&quot; value=&quot;transparent&quot; /&gt;</span>
+	</p>
+	<h2>Programming with fleXcroll</h2>
+	<p>You don't need any javascript knowledge to get the basic custom scrollbar functionality, but if you are programming web applications, fleXcroll provides several useful methods
+	for your Javascript needs. You could even program a news-ticker, for example (but you don't need to, as fleXcroll comes with a news-ticker module as a programming example).</p>
+	<p>Please see the <strong><a href="flexcroll-programming.htm">programming guide for fleXcroll</a></strong> if you need any additional fleXcroll functionality.</p>
+</div>
+
+<div><a href="http://www.hesido.com/web.php?page=customscrollbar">Back to fleXcroll page</a></div>
+<div id='footer'>
+<div class="copyrightnotice">Style by Emrah BASKAYA</div>
+</div>
+</body>
+</html>
+

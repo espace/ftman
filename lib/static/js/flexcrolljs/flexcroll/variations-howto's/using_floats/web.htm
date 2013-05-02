@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="A cross-browser javascript that enables you to style your scroll-bars with CSS" />
+<title>fleXcroll example style test page</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="author" content="Emrah BASKAYA" />
+<link href="tutorsty.css" rel="stylesheet" type="text/css" />
+<link href="flexcrollstyles.css" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src="flexcroll.js"></script>
+</head>
+<body>
+<div id='content'>
+	<h1>FleXcroll, Flexible Custom Scroll Bars Example Style</h1>
+	<h2>Using floats inside fleXcrolled divs</h2>
+	<p>For browsers that follow the specs (Firefox, Opera, etc) , your floats have to be manually cleared at the end for the scrollbar to properly set the size. Check out the code
+	and css. The fix is simple to implement.</p>
+	
+	<div id='mycustomscroll' class='flexcroll'>
+		  <img src="mypicture.jpg" width="100" height="100" class="floated" />
+		  <img src="mypicture.jpg" width="100" height="100" class="floated" />
+		  <img src="mypicture.jpg" width="100" height="100" class="floated" />
+		  <img src="mypicture.jpg" width="100" height="100" class="floated" />
+		  <img src="mypicture.jpg" width="100" height="100" class="floated" />
+		  <img src="mypicture.jpg" width="100" height="100" class="floated" />
+		  <img src="mypicture.jpg" width="100" height="100" class="floated" />
+		  <img src="mypicture.jpg" width="100" height="100" class="floated" />
+		  <img src="mypicture.jpg" width="100" height="100" class="floated" />
+		  <img src="mypicture.jpg" width="100" height="100" class="floated" />
+		  <img src="mypicture.jpg" width="100" height="100" class="floated" />
+		  
+<!-- we clear our floats using the following div, check out the CSS for it-->
+			<div class="clearfloat"></div>
+
+		</div>
+
+</div>
+
+
+<div id='footer'>
+<div class="copyrightnotice">Style by Emrah BASKAYA</div>
+</div>
+</body>
+</html>

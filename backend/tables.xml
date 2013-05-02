@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<tables>
+    <table id="1HtTRabhar96meFi2kScBl0xDr6NM59djMnru_KU">
+        <name>محطات البنزين</name>
+        <columns>
+            <column name="station_id">
+                <translation>كود المحطة</translation>
+                <validation>required</validation>
+            </column>
+            <column name="name">
+                <translation>إسم المحطة</translation>
+                <validation>required</validation>
+            </column>
+            <column name="company">
+                <translation>الشركة</translation>
+                <validation>required</validation>
+            </column>
+            <column name="company_code">
+                <translation>كود الشركة</translation>
+                <validation>required</validation>
+            </column>
+            <column name="city">
+                <translation>المحافظة</translation>
+                <validation>required</validation>
+            </column>
+            <column name="city_code">
+                <translation>كود المحافظة</translation>
+                <validation>required</validation>
+            </column>
+            <column name="district">
+                <translation>الحي\المركز</translation>
+                <validation>required</validation>
+            </column>
+            <column name="address">
+                <translation>العنوان</translation>
+                <validation>required</validation>
+            </column>
+        </columns>
+        <add_row>محطة بنزين جديدة</add_row>
+        <edit_row>تعديل محطة بنزين</edit_row>
+    </table>
+
+    <table id="1oRhHV9dUtlBHX3H-GKpcveKizOHQwAeT7mX_Ga8">
+        <name>شكاوي المواطنين</name>
+        <columns>
+            <column name="station_id">
+                <translation>كود المحطة</translation>
+                <validation>required</validation>
+            </column>
+            <column name="name">
+                <translation>الإسم</translation>
+                <validation>required</validation>
+            </column>
+            <column name="phone">
+                <translation>التليفون</translation>
+            </column>
+            <column name="title">
+                <translation>العنوان</translation>
+                <validation>required</validation>
+            </column>
+            <column name="message">
+                <translation>الرسالة</translation>
+                <field_type>textarea</field_type>
+                <validation>required</validation>
+            </column>
+        </columns>
+        <add_row>شكوى جديدة</add_row>
+        <edit_row>تعديل شكوى</edit_row>
+    </table>
+
+    <table id="1WqCO6ERqDNhOVqBe4l1b_H16rS99A8f8E_mijFk">
+        <name>حصص البنزين</name>
+        <columns>
+            <column name="station_id">
+                <translation>كود المحطة</translation>
+                <field_type>foreign_key</field_type>
+                <foreign_key>https://www.googleapis.com/fusiontables/v1/query?sql=SELECT%20station_id,name%20FROM%201HtTRabhar96meFi2kScBl0xDr6NM59djMnru_KU&amp;key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ</foreign_key>
+                <validation>required</validation>
+            </column>
+            <column name="delivered_quantity">
+                <translation>الكمية المستلمة</translation>
+                <validation>required digits</validation>
+            </column>
+            <column name="measurement_unit">
+                <translation>وحدة القياس</translation>
+                <validation>required</validation>
+            </column>
+            <column name="date">
+                <translation>التاريخ</translation>
+                <field_type>date</field_type>
+                <validation>required</validation>
+            </column>
+        </columns>
+        <add_row>حصة بنزين جديدة</add_row>
+        <edit_row>تعديل حصة بنزين</edit_row>
+    </table>
+
+</tables>

@@ -1,5 +1,7 @@
 import os,sys
-os.environ['DJANGO_SETTINGS_MODULE'] = 'fusiontables.settings'
+
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+os.environ['DJANGO_SETTINGS_MODULE'] = 'project.settings'
 
 # Google App Engine imports.
 from google.appengine.ext.webapp import util
@@ -18,9 +20,9 @@ import django.dispatch.dispatcher
 #   log_exception, django.core.signals.got_request_exception)
 
 # Unregister the rollback event handler.
-django.dispatch.dispatcher.disconnect(
-    django.db._rollback_on_exception,
-    django.core.signals.got_request_exception)
+#django.dispatch.dispatcher.disconnect(
+#    django.db._rollback_on_exception,
+#    django.core.signals.got_request_exception)
 
 def main():
   # Create a Django application for WSGI.

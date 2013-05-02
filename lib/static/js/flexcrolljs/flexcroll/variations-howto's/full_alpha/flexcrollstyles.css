@@ -1,0 +1,88 @@
+/* Scroll Bar Master Styling Starts Here */
+/* comments can freely be removed from this file */
+
+/* do not modify .scrollgeneric class, required for proper operation */
+.scrollgeneric {
+line-height: 1px; font-size: 1px;
+position: absolute; top: 0; left: 0;
+}
+
+.vscrollerbase, .vscrollerbar {
+width: 15px;
+}
+
+.hscrollerbase, .hscrollerbar {
+height: 15px;
+}
+
+.vscrollerbar, .hscrollerbar {
+/*padding information of these elements are only used for
+padding of the scroll-bar with respect to the scroll base,
+the padding will automatically be turned off by the script*/
+padding: 5px;
+/* z-index for scrollbars no longer has to be given as of version
+1.7.5 for correct operation, but it is still recommended, as this
+decides the z-index for content.*/
+z-index: 2;
+}
+.vscrollerbarbeg {
+/*top image holder for vertical scroll bar*/
+background: url(images/vscroller.png) 0px -10px;
+width: 15px;
+/* height is auto set by the script to fit the scrollbar */
+}
+
+.vscrollerbarend {
+/*bottom image holder for vertical scroll bar*/
+background: url(images/vscroller.png);
+width: 15px; height: 10px;
+}
+
+.hscrollerbarbeg {
+/*left image holder for horizontal scroll bar*/
+background: url(images/hscroller.png) -10px 0px;
+height: 15px;
+/* width is auto set by the script to fit the scrollbar */
+}
+
+.hscrollerbarend {
+/*right image holder for horizontal scroll bar*/
+background: url(images/hscroller.png);
+height: 15px; width: 10px;
+}
+
+/* Following are OPTIONAL */
+
+.vscrollerbase, .hscrollerbase {
+background-color: #D1DDCB;
+background-image: url(images/scrollbaseback.png);
+}
+
+.hscrollerbasebeg {
+height: 15px;
+background: url(images/scrollbases.png) -22px 0px no-repeat;
+/* width is auto set to fill the base */
+}
+
+.hscrollerbaseend {
+height: 15px; width: 7px;
+background: url(images/scrollbases.png) 0% 0% no-repeat;
+}
+
+.vscrollerbasebeg {
+width: 15px;
+background: url(images/scrollbases.png) -7px -8px no-repeat;
+/* height is auto set to fill the base */
+}
+
+.vscrollerbaseend {
+height: 7px; width: 15px;
+background: url(images/scrollbases.png) -7px 0px no-repeat;
+}
+
+.scrollerjogbox {
+width: 15px; height: 15px;
+top: auto; left: auto; bottom: 0px; right: 0px;
+background: white url(images/scrolljog.png) 50% 50%;
+}
+/* Scroll Bar Master Styling Ends Here */

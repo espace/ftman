@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="A cross-browser javascript that enables you to style your scroll-bars with CSS" />
+<title>fleXcroll V2.1.1 Programming Guide</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="author" content="Emrah BASKAYA" />
+<script src="/mint/?js" type="text/javascript"></script>
+<link href="tutorsty.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id='content'>
+	<h1>fleXcroll V2.1.1 Programming Guide -updated:02.02.2013</h1>
+	<p>This guide is for advanced users who needs extra functions for their javascript applications, if you only need scrollbars, please see the
+	<strong><a href="flexcroll-guide.htm">Basic usage guide</a></strong>.</p>
+	<h2>fleXcroll and AJAX applications</h2>
+	<p>fleXcroll supports dynamic content, either through AJAX applications, or any content that may be generated within javascript. For fleXcroll to work properly with dynamic content
+	you need to consider the following:</p>
+	<ol>
+	<li>You should avoid applying AJAX directly on the fleXcroll div, as this will clear the scrollbars, which are children of the fleXcroll applied div.</li>
+	<li>For AJAX content, create another div inside the fleXcroll div.</li>
+	<li>After your AJAX script injects the new content, you should tell fleXcroll to <a href="#update">update the scrollbars</a>.
+		<ul>
+		<li>Some AJAX libraries may provide an on-content-load event, you can use this to call fleXcroll update. This method ensures you don't have to modify your AJAX library.</li>
+		<li>If the on-content-load event is not provided, you will have to edit your AJAX libary to call fleXcroll update right after it injects new content (these libaries use .innerHTML
+		for pushing the new content, so you can find this line and add fleXcroll update call below it.)</li>
+		</ul>
+	</li>
+	</ol>
+	<h2>Graceful degradation / progressive enhancement</h2>
+	<p>fleXcroll may not always work in a browser, there may be times it will not initialize. Therefore, you should test for fleXcroll object tied to your element before doing
+	anything fleXcroll related, or try to test if the fleXcroll method exists before applying the method.</p>
+	<ul class="code"><li>
+	<span class="pretitle">Example - Testing of fleXcroll methods - Javascript</span>
+	<pre class="code titled"><span style=' color: Blue;'>if</span> (yourDivElement.fleXcroll) yourDivElement.fleXcroll.setScrollPos(<span style=' color: Maroon;'>false</span>,<span style=' color: Maroon;'>100</span>);</pre>
+	</li>
+	</ul>
+	<p>This is actually a good coding practice, and should be employed not only for fleXcroll commands, but to other parts of your scripts. Your scripts should go on operating without
+	having to depend on the performance of a particular script or browser.</p>
+	<h2>fleXcroll and hidden divs, and fleXcroll usage with tab / accordeon scripts</h2>
+	<li>Older versions of fleXcroll used to break when user attempted auto-initializing, but this is fixed as of version 2.0.
+	Still, fleXcroll will not update any scrollbars on hidden divs, because it cannot calculate content and container sizes.</li>
+	<li>If you are hiding the fleXcroll div first, you need fleXcroll to <a href="#update">update itself</a> whenever the div gets shown (recommended).
+	You can also <a href="#manual-init">manually initialize fleXcroll</a> on the hidden div, <strong>after</strong> it gets shown.</li>
+	<li>Since most tab scripts hide the contained divs, you need to modify your tab / accordeon scripts to <a href="#update">update fleXcroll scrollbars</a> after the tab / accordeon piece gets shown.</li>
+	<h2 id="update">Basic fleXcroll scrollbar update</h2>
+		<ul>
+	<li>Following method updates all fleXcroll scrollbars in the document.
+		<ul class="code"><li>
+		<span class="pretitle">Application of fleXcroll using id - Javascript</span>
+		<pre class="code titled">fleXenv.updateScrollBars();</pre>
+		</li></ul>
+	</li>
+	</ul>
+	<h2 name="manual-init">Manually Applying fleXcroll to your div</h2>
+	<ul>
+	<li>For various reasons, you may need to run fleXcroll at a specific point in your javascript, for example, you may use your own DomContentLoaded code,
+	or you may apply fleXcroll to a div that is not present on page load. <strong>Make sure the DOM contents are fully loaded, or otherwise fleXcroll
+	may not initialize properly or initialize at all</strong>.
+		<ul class="code"><li>
+		<span class="pretitle">Application of fleXcroll using id - Javascript</span>
+		<pre class="code titled">fleXenv.fleXcrollMain(<span style=' color: Maroon;'>"your-div-id"</span>);</pre>
+		</li>
+		<li><span class="pretitle">Application of fleXcroll using javascript element - Javascript</span>
+		<pre class="code titled">fleXenv.fleXcrollMain(<span style=' color: Maroon;'>yourDivElement</span>);</pre>
+		</li>
+		<li><span class="pretitle">Application of fleXcroll using a custom class - Javascript</span>
+		<pre class="code titled">fleXenv.initByClass(<span style=' color: Maroon;'>"a-class-name-of-your-choice"</span>);</pre>
+		</li>
+		</ul>
+	</li>
+	</ul>
+	
+	<h2>Reading scroll values</h2>
+	<p>You can read the current scroll values through <span class="js">yourDivElement.fleXdata.scrollPosition</span>, where <span class="js">yourDivElement</span>
+	refers to the fleXcrolled element in your Javascript.</p>
+	<p>The scroll value information is stored in pixel units as an array in the following format: <span class="js">[[currentXscrollPos,maxXscrollPos],[currentYscrollPos,maxYscrollPos]]</span>, which translates as:</p>
+	<dl class="variables">
+	<dt>yourDivElement.fleXdata.scrollPosition[0][0]</dt>
+	<dd>Contains the current horizontal scroll amount in pixels, <span class="js">false</span> if there's no horizontal scrollbar.</dd>
+	<dt>yourDivElement.fleXdata.scrollPosition[0][1]</dt>
+	<dd>Contains the current maximum scroll amount in pixels, <span class="js">false</span> if there's no horizontal scrollbar.</dd>
+	<dt>yourDivElement.fleXdata.scrollPosition[1][0]</dt>
+	<dd>Contains the current vertical scroll amount in pixels, <span class="js">false</span> if there's no vertical scrollbar.</dd>
+	<dt>yourDivElement.fleXdata.scrollPosition[1][1]</dt>
+	<dd>Contains the current maximum scroll amount in pixels, <span class="js">false</span> if there's no vertical scrollbar.</dd>
+	</dl>
+	<h2>Setting scroll positions</h2>
+	<p>You may set a scroll position using <span class="js">yourDivElement.fleXcroll.setScrollPos(horizontal_scroll_position, vertical_scroll_position)</span></p>
+			<ul class="code"><li>
+		<span class="pretitle">Example - Setting scroll position - Javascript</span>
+		<pre class="code titled">yourDivElement.fleXcroll.setScrollPos(<span style=' color: Maroon;'>false</span>,<span style=' color: Maroon;'>200</span>);</pre>
+		</li></ul>
+	<p>This sets the vertical scroll positon, 200 pixels down. The function also returns the scroll positions in the same format as <span class="js">yourDivElement.fleXdata.scrollPosition</span>.</p>
+	<h2>Scrolling relatively</h2>
+	<p>To scroll by a given amount, you can use <span class="js">yourDivElement.fleXcroll.scrollContent(horizontal_scroll_amount, vertical_scroll_amount):</span></p>
+	<ul><li>Scroll 150 pixels to the right, and 50 pixels upwards -&gt;
+		<ul class="code"><li> 
+		<span class="pretitle">Example - doing relative scrolls in pixels - Javascript</span>
+		<pre class="code titled">yourDivElement.fleXcroll.scrollContent(<span style=' color: Maroon;'>150</span>,<span style=' color: Maroon;'>-50</span>);</pre>
+		</li></ul>
+		</li>
+		<li>Scroll 1.5 pages down -&gt;
+		<ul class="code"><li>
+		<span class="pretitle">Example - doing relative scrolls in pixels - Javascript</span>
+		<pre class="code titled">yourDivElement.fleXcroll.scrollContent(<span style=' color: Maroon;'>false</span>,<span style=' color: Maroon;'>"1.5p"</span>);</pre>
+		</li></ul>
+	</li></ul>
+	<p>The function also returns the scroll positions in the same format as <span class="js">yourDivElement.fleXdata.scrollPosition</span>.</p>
+
+<h2>Running code after fleXcroll initializes</h2>
+	<p>When you require a piece of your code to activate after fleXcroll initializes (e.g. please see the fleXnewsticker example in the example archive) you have to define a function named <span class="js">window.onfleXcrollRun</span></p>
+	<ul class="code">
+	<li>
+	<span class="pretitle">Running code after fleXcroll initializes- Javascript</span>
+	<pre class="code titled">window.onfleXcrollRun=function(){ 
+<span style=' color: Green;'>//your code that will be run after fleXcroll goes here.</span> 
+
+}</pre></li>
+</ul>
+
+<h2>Pseudo-event: onfleXcroll</h2>
+<p>When a scroll is done either by javascript or by the user, the function <span class="js">onfleXcroll</span> is run. It doesn't work like usual events, it supports none of the DOM event properties. It just allows you to know that a scroll is done and execute a piece of code.</p>	
+		<ul class="code">
+	<li>
+	<span class="pretitle">Running code after fleXcroll initializes- Javascript</span>
+	<pre class="code titled">yourDivElement.onfleXcroll=function(){ 
+<span style=' color: Green;'>//your code that will be run after user scrolls goes here.</span> 
+
+}</pre></li>
+</ul>
+	
+	<h2>List of fleXcroll functions in the window scope</h2>
+	<dl class="functions">
+	<dt>fleXenv.updateScrollBars()</dt>
+	<dd>This function updates all of the fleXcroll applied elements. You use this whenever you have added / removed new content or changed the size of or contents in a fleXcroll div.
+	For asynchronous AJAX updates or animations, you should call this right after the content / size changes are made. Decent AJAX and animation libraries provide call-backs that let you execute functions
+	after content changes are complete.</dd>
+	<dt>fleXenv.fleXcrollMain(element)</dt>
+	<dd><span class="js">element</span> -> {HTMLElement|&quot;id-string&quot;} : Use this to manually apply fleXcroll to given element. The function accepts elements or id strings. If fleXcroll is already applied, <b>this will call a scrollbar update.</b> So you can use this to manually apply fleXcroll to initially-hidden divs, when the div gets shown. </dd>
+	
+	<dt>fleXenv.initByClass(&quot;classname&quot)</dt>
+	<dd><span class="js">&quot;classname&quot</span> : apply fleXcroll to all div elements with given classname, use this to apply fleXcroll manually to divs with given class, when you don't want to use automatic starting of fleXcroll with &quot;flexcroll&quot; class.</dd>
+	<dt>fleXenv.scrollTo(element)</dt>
+	<dd><span class="js">element</span> -> {HTMLElement|&quot;id-string&quot;} : Use this to scroll to an element inside a fleXcroll div, you don't have to specify the fleXcroll div. The function accepts elements or id strings.</dd>
+	</dl>
+	<h2>List of fleXcroll functions tied to the fleXcroll div</h2>
+	<dl class="functions">
+	<dt>yourDivElement.fleXcroll.updateScrollBars()</dt>
+	<dd>Use this if you want a div to be specifically updated, without touching other fleXcroll divs. May be useful if you have lots of fleXcroll divs and update only the necessary fleXcroll div.</dd>
+	<dt>yourDivElement.fleXcroll.setScrollPos(horizontal_scroll_position, vertical_scroll_position, relative, prevent_event)</dt>
+	<dd><span class="js">horizontal_scroll_position</span> -> {integer} : sets the horizontal scroll position, in pixels.</dd>
+	<dd><span class="js">vertical_scroll_position</span> -> {integer} : sets the vertical scroll position, in pixels.</dd>
+	<dd><span class="js">relative</span> -> {<span class="default">false</span>|true} : If set to true, the function acts like <span class="js">yourDivElement.fleXcroll.scrollContent()</span></dd>
+	<dd><span class="js">prevent_event</span> -> {<span class="default">false</span>|true} : If set to true, yourDivElement.onfleXcroll() is not run after scroll position is set. You can use this to avoid infinite loops on certain occasions.</dd>
+	<dt>yourDivElement.fleXcroll.scrollContent(horizontal_scroll_amount, vertical_scroll_amount)</dt>
+	<dd><span class="js">horizontal_scroll_amount</span> -> {integer||"string"} : scrolls in given pixels in horizontal direction. If given in integers, the scroll is done in pixels. If given in string format "1p", scrolls 1 page. "0.5p" scrolls half a page. Accepts negative values.</dd>
+	<dd><span class="js">vertical_scroll_amount</span> -> {integer||"string"} : scrolls in given pixels in vertical direction. If given in integers, the scroll is done in pixels. If given in string format "1p", scrolls 1 page. "0.5p" scrolls half a page. Accepts negative values.</dd>
+
+	</dl>
+
+<p>Please see the <strong><a href="flexcroll-guide.htm">Basic usage guide</a></strong> if these don't mean anything to you!</p>	
+	</div>
+
+<div><a href="http://www.hesido.com/web.php?page=customscrollbar">Back to fleXcroll page</a></div>
+<div id='footer'>
+<div class="copyrightnotice">Style by Emrah BASKAYA</div>
+</div>
+</body>
+</html>
+

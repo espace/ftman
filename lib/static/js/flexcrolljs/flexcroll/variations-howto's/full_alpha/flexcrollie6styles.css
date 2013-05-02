@@ -1,0 +1,47 @@
+/*
+Following is only needed if you are using alpha png images, if not, IE6 can use the same CSS for images.
+The alpha png images for IE6 has to be seperated as filter:alphaimage loader does not support image positioning.
+You can use the same seperated images for more advanced browsers, but to minimize http calls, merging them
+is a good practice so advanced browsers will benefit from this.
+IE7 comes with proper png support, so it is not included in this conditional CSS.
+*/
+
+.vscrollerbarbeg {
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop src='ie6images/vscrollertop.png');
+background-image: none;
+}
+
+.vscrollerbarend {
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop src='ie6images/vscrollerbot.png');
+background-image: none;
+}
+
+.hscrollerbarbeg {
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop src='ie6images/hscrollersin.png');
+background-image: none;
+}
+
+.hscrollerbarend {
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop src='ie6images/hscrollerdex.png');
+background-image: none;
+}
+
+.vscrollerbasebeg {
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop src='ie6images/vscrollbasetop.png');
+background-image: none;
+}
+
+.vscrollerbaseend {
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop src='ie6images/vscrollbasebot.png');
+background-image: none;
+}
+
+.hscrollerbasebeg {
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop src='ie6images/hscrollbasesin.png');
+background-image: none;
+}
+
+.hscrollerbaseend {
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop src='ie6images/hscrollbasedex.png');
+background-image: none;
+}

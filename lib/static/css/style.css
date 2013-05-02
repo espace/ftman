@@ -1,0 +1,75 @@
+
+@font-face {
+    font-family: 'GESSTwoBoldRegular';
+    src: url('../fonts/gess-bold.eot');
+    src: url('../fonts/gess-bold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/gess-bold.woff') format('woff'),
+         url('../fonts/gess-bold.ttf') format('truetype'),
+         url('../fonts/gess-bold.svg#GESSTwoBoldRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+@font-face {
+    font-family: 'GESSTwoMediumRegular';
+    src: url('../fonts/gess-med.eot');
+    src: url('../fonts/gess-med.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/gess-med.woff') format('woff'),
+         url('../fonts/gess-med.ttf') format('truetype'),
+         url('../fonts/gess-med.svg#GESSTwoMediumRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+ body {
+        padding-top: 20px;
+        padding-bottom: 60px;
+        direction: rtl;
+        background: #fff;
+      }
+  button{
+
+  }
+/*====================  sidebar-nav   ====================*/
+.sidebar-nav h2{
+  font:23px/45px GESSTwoMediumRegular ;
+}
+.sidebar-nav h2 i{
+  margin: 5px; 
+}
+
+
+.data-con .table td ,.data-con .table th{
+  padding: 5px;
+  text-align: center;
+
+}
+
+.data-con h2{
+  font:23px/45px GESSTwoMediumRegular ;
+}
+.data-con h2 i{
+  margin: 5px; 
+}
+
+.results_count{
+    width: 200px;
+    height: 20px;
+    padding:15px;
+    background:rgba(0, 0, 0, 0.7);
+    border:1px solid #000;
+    border-radius: 4px;
+    position: absolute;
+    bottom:20px;
+    left:20px;
+    z-index: 9999;
+    font-size:12px;
+    color: #fff;
+    text-align: center;
+    font-family: tahoma;
+}

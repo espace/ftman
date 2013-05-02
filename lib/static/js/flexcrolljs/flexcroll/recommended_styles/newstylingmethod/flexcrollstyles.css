@@ -1,0 +1,221 @@
+/* Scroll Bar Master Styling Starts Here */
+/* All comments can be freely removed from the css */
+
+/*
+Your custom scrollbar images do not need to have the same size as in example images.
+You do not need to define images for all elements, you may want to have some transparency,
+or simply a filled color without using an image. The example images in this archive is optimized
+for the least number of http calls, only 2 images are needed for full operation, but you may have
+separate images for each element or make different group combinations in the images, or simply
+have a color defined for horizontal scrollbar and horizontal scrollbase, and get away with a single
+image for vertical bar if you will only use vertical scrollbars.
+*/
+
+
+/* Basic styling with no images starts here */
+
+/* IMPORTANT:
+Note that, even if you are not expecting to use horizontal scrollbars,
+you should at least define colors for it, e.g. you never know what font size
+your users will force on the page
+*/
+
+/* .scrollgeneric is required for proper scrollbar display,
+not for user customization, and is mandatory*/
+.scrollgeneric {
+line-height: 1px;
+font-size: 1px;
+position: absolute;
+top: 0; left: 0;
+}
+
+/* For scrollbars, defining a color for background alongside with an image 
+is always a good idea, this way the scrollbars are visible until images load */
+.vscrollerbase {
+/* vscrollerbase is the div that holds the scrollbar (parent of vscrollerbar)
+this represents the whole background of the scrolltrack */
+width: 20px;
+background: url(verticalbar.png) 0 0 repeat-y;
+}
+
+.vscrollerbar {
+width: 20px;
+/* it is advisable to use a background-color this element for times when there are problems
+loading images or when the user agent does not load them, but since we are using an alpha
+transparent scrollbar body and cap images, we cannot do this for this type of style.*/
+}
+
+.hscrollerbase {
+/* hscrollerbase is the div that holds the scrollbar (parent of hscrollerbar) */
+height: 20px;
+}
+
+.hscrollerbar {
+height: 20px;
+/* it is advisable to use a background-color this element for times when there are problems
+loading images or when the user agent does not load them, but since we are using an alpha
+transparent scrollbar body and cap images, we cannot do this for this type of style.*/
+}
+
+/* basic style ends here, this was actually all that is required to run fleXcroll,
+but you won't be able to see any scrollbar as we have not provided a background-color
+as this example style uses alpha images.
+*/
+
+
+/* styles for scrollbar images start here */
+
+.vscrollerbar, .hscrollerbar {
+/*This information is not used to style the scrollbars, but the value is used to
+get how much scrollbar will be padded against the scrollerbase. The style padding will
+be automatically be turned off by the script. The greater the padding, the further away
+the scrollbar stops away from both ends. This may be used, for example, to provide space
+for our arrow heads. It has to be in px.
+*/
+padding: 15px;
+}
+
+.vscrollerbarbeg {
+/* Top cap for vertical scrollbar*/
+background: url(verticalbar.png) -100px 0 no-repeat;
+width: 20px;
+/* Height of this class is normally set by the script, to fit the scrollbar,
+but we fix it by !important, so that we can see scrollbar middle element */
+height: 12px !important;
+}
+
+.vscrollerbarmid {
+/* This is a new element provided by v2.1.0, it can be used mainly for alpha transparent scrollbar images. 
+This element spans between vscrollerbarbeg and end: its height is set automatically*/
+width: 20px;
+background: url(verticalbar.png) -20px 0 repeat-y;
+}
+
+.vscrollerbarend {
+/* Bottom cap for vertical scrollbar*/
+background: url(verticalbar.png) -100px -12px no-repeat;
+width: 20px;
+height: 12px;
+}
+
+.vscrollerbasebeg {
+/* Vertical scrollbar's base top-cap */
+/* We can provide the top arrow image here, and v2.1.0 supports seperate movements for these parts.*/
+background: url(verticalbar.png) -60px 0 no-repeat;
+width: 20px;
+/* height of this element is normally auto set by the script to fit the scrollbase, to cover the base, we fix the size using !important
+as we want to sue this not only as a style, but also as an arrow image.*/
+height: 22px !important;
+}
+
+.vscrollerbasemid {
+/*This element is new, and it spans between .vscrollerbasebeg and end, its height is set automatically.*/
+/* We are not using this element in this style, so we do not make any style declerations.*/
+/* width: 20px; */
+}
+
+.vscrollerbaseend {
+/* Vertical scrollbar's base bottom-cap */
+/* We can provide the bottom arrow image here, and v2.1.0 supports seperate movements for these parts.*/
+background: url(verticalbar.png) -60px -22px no-repeat;
+width: 20px;
+height: 22px;
+}
+
+.hscrollerbarbeg {
+/* Left image holder for horizontal scrollbar */
+background: url(horizontalbar.png) 0 -100px no-repeat;
+height: 20px;
+/* Width of this class is normally set by the script, to fit the scrollbar,
+but we fix it by !important, so that we can see scrollbar middle element */
+width: 11px !important;
+}
+
+.hscrollerbarmid  {
+/* This is a new element provided by v2.1.0, it can be used mainly for alpha transparent scrollbar images. 
+This element spans between hscrollerbarbeg and end: its width is set automatically*/
+background: url(horizontalbar.png) 0 -20px repeat-x;
+height: 20px;
+}
+
+.hscrollerbarend {
+/* Right image holder for horizontal scrollbar */
+background: url(horizontalbar.png) -11px -100px no-repeat;
+height: 20px;
+width: 11px;
+}
+
+.scrollerjogbox {
+/* Scroller jog (scroll-pan) image holder, only visible when both scrollbars are used */
+background: url(horizontalbar.png) -22px -100px no-repeat;
+width: 20px;
+height: 20px;
+top: auto; left: auto;
+bottom: 0px; right: 0px;
+}
+.hscrollerbase {
+/* hscrollerbase is the div that holds the scrollbar (parent of hscrollerbar) */
+background: url(horizontalbar.png) 0 0 repeat-x;
+}
+
+.hscrollerbasebeg {
+/* Horizontal scrollbar's left-cap */
+/* This may be used for holding the left arrow */
+background: url(horizontalbar.png) 0 -60px no-repeat;
+height: 20px;
+/* height of this element is normally auto set by the script to fit the scrollbase, to cover the base, we fix the size using !important
+as we want to sue this not only as a style, but also as n arrow image.*/
+width: 22px !important;
+}
+.hscrollerbasemid {
+/*This element is new, and it spans between .hscrollerbasebeg and end, its width is set automatically.*/
+/* We are not using this element in this style, so we do not make any style declerations.*/
+/* height: 20px; */
+}
+.hscrollerbaseend {
+/* Horizontal scrollbar's right-cap */
+/* This may be used for holding the right arrow */
+height: 20px;
+width: 22px;
+background: url(horizontalbar.png) -22px -60px no-repeat;
+}
+
+/* The :hover is not required, but they provide simple css animation when hovering
+by showing different parts of our  background images */
+.vscrollerbar:hover .vscrollerbarbeg {
+background-position: -100px -23px; 
+}
+.vscrollerbar:hover .vscrollerbarmid {
+background-position: -40px 0;
+}
+.vscrollerbar:hover .vscrollerbarend {
+background-position: -100px -35px;
+}
+.vscrollerbasebeg:hover {
+background-position: -80px 0;
+}
+.vscrollerbaseend:hover {
+background-position: -80px -22px;
+}
+.hscrollerbar:hover .hscrollerbarbeg {
+background-position: 0 -120px; 
+}
+.hscrollerbar:hover .hscrollerbarmid {
+background-position: 0 -40px;
+}
+.hscrollerbar:hover .hscrollerbarend {
+background-position: -11px -120px;
+}
+.hscrollerbasebeg:hover {
+background-position: 0 -80px;
+}
+.hscrollerbaseend:hover {
+background-position: -22px -80px;
+}
+.scrollerjogbox:hover {
+background-position: -22px -120px;
+}
+
+
+/* Scroll Bar Master Styling Ends Here */
+

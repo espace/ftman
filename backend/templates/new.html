@@ -1,0 +1,78 @@
+{% extends 'base.html' %} 
+
+{% load filters %}
+
+{% block title %}{{ tableid|tabletag:'name' }}{% endblock %}
+
+{% block content %}
+
+	<h2 class="span10">{{ tableid|tabletag:'name' }}</h2>
+  <a href="{% url table tableid=tableid %}" class="btn span2 pull-left"><i class="icon-share-alt"></i> العودة للخلف</a>
+
+  <div class="well span12" style="margin-right:0;">
+    <h4 class=""><i class="icon-edit" style="margin-left:5px;"></i>{{ tableid|tabletag:'add_row' }}</h4><br>
+
+
+  <script>
+  $(document).ready(function(){
+    $("#save_form").validate();
+  });
+  </script>
+
+  	<form action="" id="save_form" method="post">
+
+			{% for row in rows %}
+				<div class="control-group">
+				    <label class="control-label">{{ row.name|translate:tableid }}</label>
+				    <div class="controls">
+                        {% if row.name|field_type:tableid == 'foreign_key' %}
+
+                            {% for key, value in foreign_tables.items %}
+                                {% if key == row.name %}
+                                    <select class="{{ row.name|validation:tableid }}" name="{{row|getkey:'column id'}}">
+                                        <option value="">---</option>
+                                        {% for forekey in value %}
+                                            <option value={{ forekey.0 }}>{{ forekey.1 }} ({{ forekey.0 }})</option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            {% endfor %}
+
+                        {% elif row.name|field_type:tableid == 'textarea' %}
+
+                            <textarea class="{{ row.name|validation:tableid }}" name="{{row|getkey:'column id'}}" style="width: 450px; height: 100px" ></textarea>
+
+                        {% elif row.name|field_type:tableid == 'date' %}
+
+                            <div class="input-append date" data-date-format="yyyy/mm/dd">
+                                <input class="span2 {{ row.name|validation:tableid }}" id="{{row|getkey:'column id'}}" name="{{row|getkey:'column id'}}" size="16" type="text" readonly>
+                                <span class="add-on"><i class="icon-calendar"></i></span>
+                            </div>
+
+                            <script>
+                                $(function(){
+                                    $('.date').datepicker();
+                                });
+                            </script>
+
+                        {% else %}
+
+				                    <input name="{{row|getkey:'column id'}}" class="{{ row.name|validation:tableid }}" type="text" >
+
+                        {% endif %}
+
+				    </div>
+				</div>
+			{% endfor %}  
+
+
+        
+      <br><br><br>
+			<input type="submit" value="حفظ"  class="btn btn-primary"/>
+
+			{% csrf_token %}
+
+		</form>
+  </div> <!-- well -->
+
+  {% endblock %}

@@ -1,0 +1,25 @@
+/* Scroll Bar Master Styling Starts Here */
+/* All comments can be freely removed from the css */
+
+
+.scrollgeneric {line-height: 1px;font-size: 1px;position: absolute;top: 0; left: 0;}
+.vscrollerbase {width: 15px;background-color: white;}
+.vscrollerbar {width: 15px;background-color: black;}
+.hscrollerbase {height: 15px;background-color: white;}
+.hscrollerbar {height: 15px;background-color: black;}
+.hscrollerbar {background: #99CBCB url(horizontalbarbody_cornerjog.png) 0px -30px repeat-x;}
+.vscrollerbar {background: #99CBCB url(basebarcaps_verticalbarbody.png) -15px 0px repeat-y;}
+.vscrollerbar, .hscrollerbar {padding: 10px;z-index: 2;}
+.vscrollerbarbeg {background: url(basebarcaps_verticalbarbody.png) -45px -30px no-repeat;width: 15px;height: 15px !important;}
+.vscrollerbarend {background: url(basebarcaps_verticalbarbody.png) -45px 0px no-repeat;width: 15px;height: 15px;}
+.hscrollerbarbeg {background: url(basebarcaps_verticalbarbody.png) -60px -15px no-repeat;height: 15px;width: 15px !important;}
+.hscrollerbarend {background: url(basebarcaps_verticalbarbody.png) -30px -15px no-repeat;height: 15px;width: 15px;}
+.scrollerjogbox {width: 15px;height: 15px;top: auto; left: auto;bottom: 0px; right: 0px;background: #4E727C url(horizontalbarbody_cornerjog.png) 0px 0px;}
+.vscrollerbase {background: #D7EBDF url(basebarcaps_verticalbarbody.png) 0px 0px repeat-y;}
+.vscrollerbasebeg {background: url(basebarcaps_verticalbarbody.png) -30px -30px no-repeat;width: 15px;height: 15px !important;}
+.vscrollerbaseend {background: url(basebarcaps_verticalbarbody.png) -60px -30px no-repeat;height: 15px;width: 15px;}
+.hscrollerbase {background: #D7EBDF url(horizontalbarbody_cornerjog.png) 0px -15px repeat-x;}
+.hscrollerbasebeg {background: url(basebarcaps_verticalbarbody.png) -60px 0px no-repeat;height: 15px;width: 15px !important;}
+.hscrollerbaseend {height: 15px;width: 15px;background: url(basebarcaps_verticalbarbody.png) -30px 0px no-repeat;}
+.scrollerjogbox:hover {background: #5E828C url(basebarcaps_verticalbarbody.png) -45px -15px;}
+

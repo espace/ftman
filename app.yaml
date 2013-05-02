@@ -4,6 +4,14 @@ runtime: python27
 api_version: 1
 threadsafe: no
 
+libraries:
+- name: django
+  version: "1.4"
+
 handlers:
+
+- url: /static
+  static_dir: lib/static
+
 - url: /.*
   script: main.py

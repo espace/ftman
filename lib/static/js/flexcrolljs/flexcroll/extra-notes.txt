@@ -1,0 +1,19 @@
+fleXcroll CANNOT be used in commercial sites, or commercially built sites
+without a commercial license registered to the user's name. For details
+about licensing please visit www.hesido.com, or email me at:
+emrahbaskaya at hesido dot com
+------
+
+All the separate fleXcroll javascript files (named flexcroll.js) in their
+destined folders are *exactly* the same version. All style differences are
+made only by CSS, and sometimes the examples involve with changes in HTML.
+
+The exact same javascript files are put in each of the example directories
+for you to easily upload a directory and test the script online, and there
+is nothing more to it.
+
+If you want to see the uncompressed and human readable version of the script,
+please check out the directory named:
+fullimage-commented-uncompressed
+
+Emrah BASKAYA
