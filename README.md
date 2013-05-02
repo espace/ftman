@@ -11,13 +11,11 @@ Based on Python 2.7 and Django 1.4.1
 ### Getting the app up
 
 1. fork the and clone the repo.
-3. rename the file *project/settings.py.example* to *project/settings.py* and change the credentials of your Google App. 
+2. rename the file *project/settings.py.example* to *project/settings.py* and change the credentials of your Google App. 
 3. Start the app using under development via:
-
 ```
  ./manage.py runserver 127.0.0.1:8000 --settings=settings
 ```
-
 4. Login using your gmail account
 
 ## Notes
