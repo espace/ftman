@@ -4,6 +4,13 @@ _Google Fusiontables Management System_
 
 FTMan is a platform that allows end users to manage their Google Fusiontables in a user-friendly form. It basiclly provides the CRUD operations for any Fusiontable in simple 3 forms (Listing Form - Adding Form - Editing Form).
 
+FTMan allows you to define your fusiontables in an XML file which is located in *backend/tables.xml*. In this file you can:
+1. Determine which tables you want to manage with FTMan.
+2. Rename the columns names to be more firendly.
+3. Define the fields types (Textarea - Date - ForignKey - etc).
+4. Define the validation types for each column (Required - Mail - URL - Date - etc)
+
+
 ## Installation
 
 Based on Python 2.7 and Django 1.4.1
