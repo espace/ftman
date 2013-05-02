@@ -18,3 +18,8 @@ Based on Python 2.7 and Django 1.4.1
  ./manage.py runserver 127.0.0.1:8000 --settings=settings
 ```
 
+4. Login using your gmail account
+
+## Notes
+
+FTMan allows you to manage all fusiontables that you already have access to it.
